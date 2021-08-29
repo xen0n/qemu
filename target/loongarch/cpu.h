@@ -110,6 +110,7 @@ static inline void cpu_get_tb_cpu_state(CPULoongArchState *env,
 {
     *pc = env->pc;
     *cs_base = 0;
+    *flags = 0;
 }
 
 void loongarch_cpu_list(void);
