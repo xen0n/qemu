@@ -197,6 +197,20 @@ static void tcg_out_nop_fill(tcg_insn_unit *p, int count)
 /* Relocates a PCADDU12I + JIRL pair */
 #define R_LOONGARCH_CALL    258
 
+/* For relocating ld/st instructions. */
+static bool reloc_sk12(tcg_insn_unit *src_rw, const tcg_insn_unit *target)
+{
+    const tcg_insn_unit *src_rx = tcg_splitwx_to_rx(src_rw);
+    intptr_t offset = (intptr_t)target - (intptr_t)src_rx;
+
+    if (offset == sextreg(offset, 0, 12)) {
+        *src_rw |= (offset << 15) & 0x3ffc00;
+        return true;
+    }
+
+    return false;
+}
+
 static bool reloc_sk16(tcg_insn_unit *src_rw, const tcg_insn_unit *target)
 {
     const tcg_insn_unit *src_rx = tcg_splitwx_to_rx(src_rw);
@@ -663,7 +677,7 @@ QEMU_BUILD_BUG_ON(TLB_MASK_TABLE_OFS(0) < -(1 << 11));
 static void tcg_out_goto(TCGContext *s, const tcg_insn_unit *target)
 {
     tcg_out_opc_b(s, 0);
-    bool ok = reloc_jimm20(s->code_ptr - 1, target); // XXX B I26
+    bool ok = reloc_sd10k16(s->code_ptr - 1, target);
     tcg_debug_assert(ok);
 }
 
@@ -755,7 +769,7 @@ static bool tcg_out_qemu_ld_slow_path(TCGContext *s, TCGLabelQemuLdst *l)
     }
 
     /* resolve label address */
-    if (!reloc_sbimm12(l->label_ptr[0], tcg_splitwx_to_rx(s->code_ptr))) {
+    if (!reloc_sk12(l->label_ptr[0], tcg_splitwx_to_rx(s->code_ptr))) {
         return false;
     }
 
@@ -789,7 +803,7 @@ static bool tcg_out_qemu_st_slow_path(TCGContext *s, TCGLabelQemuLdst *l)
     }
 
     /* resolve label address */
-    if (!reloc_sbimm12(l->label_ptr[0], tcg_splitwx_to_rx(s->code_ptr))) {
+    if (!reloc_sk12(l->label_ptr[0], tcg_splitwx_to_rx(s->code_ptr))) {
         return false;
     }
 
