@@ -1218,14 +1218,22 @@ static void tcg_out_op(TCGContext *s, TCGOpcode opc,
         }
         break;
 
+    case INDEX_op_rotl_i32:
     case INDEX_op_rotr_i32:
+        if (op == INDEX_op_rotl_i32) {
+            a2 = 32 - a2;
+        }
         if (c2) {
             tcg_out_opc_rotri_w(s, a0, a1, a2 & 0x1f);
         } else {
             tcg_out_opc_rotr_w(s, a0, a1, a2);
         }
         break;
+    case INDEX_op_rotl_i64:
     case INDEX_op_rotr_i64:
+        if (op == INDEX_op_rotl_i32) {
+            a2 = 64 - a2;
+        }
         if (c2) {
             tcg_out_opc_rotri_d(s, a0, a1, a2 & 0x3f);
         } else {
@@ -1443,6 +1451,8 @@ static TCGConstraintSetIndex tcg_target_op_def(TCGOpcode op)
     case INDEX_op_shl_i64:
     case INDEX_op_shr_i64:
     case INDEX_op_sar_i64:
+    case INDEX_op_rotl_i32:
+    case INDEX_op_rotl_i64:
     case INDEX_op_rotr_i32:
     case INDEX_op_rotr_i64:
         return C_O1_I2(r, r, ri);
