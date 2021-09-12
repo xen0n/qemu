@@ -851,7 +851,7 @@ int cpu_signal_handler(int host_signum, void *pinfo,
 {
     siginfo_t *info = pinfo;
     ucontext_t *uc = puc;
-    greg_t pc = uc->uc_mcontext.__gregs[REG_PC];
+    greg_t pc = uc->uc_mcontext.__pc;
     uint32_t insn = *(uint32_t *)pc;
     int is_write = 0;
 
