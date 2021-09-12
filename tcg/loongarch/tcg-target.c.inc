@@ -300,7 +300,7 @@ static void tcg_out_movi(TCGContext *s, TCGType type, TCGReg rd,
            lu12i.w. */
         return;
     }
-    tcg_out_opc_cu32i_d(s, rd, rd, higher);
+    tcg_out_opc_cu32i_d(s, rd, higher);
 
     if (sextreg(val, 0, 52) == val) {
         /* Fits in 52-bits, upper bits are already properly sign-extended by
