@@ -452,7 +452,7 @@ const char * const loongarch_c_normal_name[8] = {
 };
 
 /* instruction data */
-const  la_opcode_data opcode_data[] = {
+const la_opcode_data loongarch_opcode_data[] = {
     { "illegal", la_codec_illegal, la_fmt_illegal },
     { "clo.w", la_codec_2r, la_fmt_rd_rj },
     { "clz.w", la_codec_2r, la_fmt_rd_rj },
@@ -2056,7 +2056,7 @@ static uint32_t operand_sel(uint32_t insn)
 static void decode_insn_operands(la_decode *dec)
 {
     uint32_t insn = dec->insn;
-    dec->codec = opcode_data[dec->op].codec;
+    dec->codec = loongarch_opcode_data[dec->op].codec;
     switch (dec->codec) {
     case la_codec_illegal:
     case la_codec_empty:
@@ -2233,11 +2233,11 @@ static void format_insn(char *buf, size_t buflen, size_t tab, la_decode *dec)
     char tmp[16];
     const char *fmt;
 
-    fmt = opcode_data[dec->op].format;
+    fmt = loongarch_opcode_data[dec->op].format;
     while (*fmt) {
         switch (*fmt) {
         case 'n': /* name */
-            append(buf, opcode_data[dec->op].name, buflen);
+            append(buf, loongarch_opcode_data[dec->op].name, buflen);
             break;
         case 's':
             append(buf, "s", buflen);
