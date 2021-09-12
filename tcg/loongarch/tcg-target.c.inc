@@ -514,7 +514,7 @@ static void tcg_out_brcond(TCGContext *s, TCGCond cond, TCGReg arg1,
         arg2 = t;
     }
 
-    tcg_out_reloc(s, s->code_ptr, R_LOONGARCH_BRANCH, l, 0);
+    tcg_out_reloc(s, s->code_ptr, R_LOONGARCH_SK16, l, 0);
     tcg_out32(s, encode_djsk16_insn(op, arg1, arg2, 0));
 }
 
@@ -1007,7 +1007,7 @@ static void tcg_out_op(TCGContext *s, TCGOpcode opc,
         break;
 
     case INDEX_op_br:
-        tcg_out_reloc(s, s->code_ptr, R_RISCV_JAL, arg_label(a0), 0);  // XXX B I26
+        tcg_out_reloc(s, s->code_ptr, R_LOONGARCH_SD10K16, arg_label(a0), 0);
         tcg_out_opc_b(s, 0);
         break;
 
