@@ -1255,6 +1255,14 @@ static void tcg_out_op(TCGContext *s, TCGOpcode opc,
         tcg_out_clzctz(s, OPC_CTZ_D, a0, a1, a2);
         break;
 
+    case INDEX_op_bswap32_i32:
+        tcg_out_opc_revb_2h(s, a0, a1);
+        tcg_out_opc_rotri_w(s, a0, a0, 16);
+        break;
+    case INDEX_op_bswap64_i64:
+        tcg_out_opc_revb_d(s, a0, a1);
+        break;
+
     case INDEX_op_add2_i32:
         tcg_out_addsub2(s, a0, a1, a2, args[3], args[4], args[5],
                         const_args[4], const_args[5], false, true);
@@ -1402,6 +1410,8 @@ static TCGConstraintSetIndex tcg_target_op_def(TCGOpcode op)
     case INDEX_op_clz_i64:
     case INDEX_op_ctz_i32:
     case INDEX_op_ctz_i64:
+    case INDEX_op_bswap32_i32: // XXX add bswap16_i32 too
+    case INDEX_op_bswap64_i64:
         return C_O1_I1(r, r);
 
     case INDEX_op_st8_i32:
