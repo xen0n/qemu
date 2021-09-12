@@ -230,49 +230,49 @@ typedef enum {
     OPC_BLEU = 0x6c000000,
 } LoongArchInsn;
 
-static int32_t encode_d_slot(LoongArchInsn opc, uint32_t d)
+static int32_t encode_d_slot(LoongArchInsn opc, uint32_t d) __attribute__((unused))
 {
     return opc | d;
 }
 
-static int32_t encode_dj_slots(LoongArchInsn opc, uint32_t d, uint32_t j)
+static int32_t encode_dj_slots(LoongArchInsn opc, uint32_t d, uint32_t j) __attribute__((unused))
 {
     return opc | d | j << 5;
 }
 
-static int32_t encode_djk_slots(LoongArchInsn opc, uint32_t d, uint32_t j, uint32_t k)
+static int32_t encode_djk_slots(LoongArchInsn opc, uint32_t d, uint32_t j, uint32_t k) __attribute__((unused))
 {
     return opc | d | j << 5 | k << 10;
 }
 
-static int32_t encode_djka_slots(LoongArchInsn opc, uint32_t d, uint32_t j, uint32_t k, uint32_t a)
+static int32_t encode_djka_slots(LoongArchInsn opc, uint32_t d, uint32_t j, uint32_t k, uint32_t a) __attribute__((unused))
 {
     return opc | d | j << 5 | k << 10 | a << 15;
 }
 
-static int32_t encode_djkm_slots(LoongArchInsn opc, uint32_t d, uint32_t j, uint32_t k, uint32_t m)
+static int32_t encode_djkm_slots(LoongArchInsn opc, uint32_t d, uint32_t j, uint32_t k, uint32_t m) __attribute__((unused))
 {
     return opc | d | j << 5 | k << 10 | m << 16;
 }
 
-static int32_t encode_dk_slots(LoongArchInsn opc, uint32_t d, uint32_t k)
+static int32_t encode_dk_slots(LoongArchInsn opc, uint32_t d, uint32_t k) __attribute__((unused))
 {
     return opc | d | k << 10;
 }
 
-static int32_t encode_jk_slots(LoongArchInsn opc, uint32_t j, uint32_t k)
+static int32_t encode_jk_slots(LoongArchInsn opc, uint32_t j, uint32_t k) __attribute__((unused))
 {
     return opc | j << 5 | k << 10;
 }
 
-static int32_t encode_dj_insn(LoongArchInsn opc, TCGReg d, TCGReg j)
+static int32_t encode_dj_insn(LoongArchInsn opc, TCGReg d, TCGReg j) __attribute__((unused))
 {
     d &= 0x1f;
     j &= 0x1f;
     return encode_dj_slots(opc, d, j);
 }
 
-static int32_t encode_djk_insn(LoongArchInsn opc, TCGReg d, TCGReg j, TCGReg k)
+static int32_t encode_djk_insn(LoongArchInsn opc, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     d &= 0x1f;
     j &= 0x1f;
@@ -280,7 +280,7 @@ static int32_t encode_djk_insn(LoongArchInsn opc, TCGReg d, TCGReg j, TCGReg k)
     return encode_djk_slots(opc, d, j, k);
 }
 
-static int32_t encode_djkua2_insn(LoongArchInsn opc, TCGReg d, TCGReg j, TCGReg k, uint32_t ua2)
+static int32_t encode_djkua2_insn(LoongArchInsn opc, TCGReg d, TCGReg j, TCGReg k, uint32_t ua2) __attribute__((unused))
 {
     d &= 0x1f;
     j &= 0x1f;
@@ -289,7 +289,7 @@ static int32_t encode_djkua2_insn(LoongArchInsn opc, TCGReg d, TCGReg j, TCGReg 
     return encode_djka_slots(opc, d, j, k, ua2);
 }
 
-static int32_t encode_djkua3_insn(LoongArchInsn opc, TCGReg d, TCGReg j, TCGReg k, uint32_t ua3)
+static int32_t encode_djkua3_insn(LoongArchInsn opc, TCGReg d, TCGReg j, TCGReg k, uint32_t ua3) __attribute__((unused))
 {
     d &= 0x1f;
     j &= 0x1f;
@@ -298,7 +298,7 @@ static int32_t encode_djkua3_insn(LoongArchInsn opc, TCGReg d, TCGReg j, TCGReg 
     return encode_djka_slots(opc, d, j, k, ua3);
 }
 
-static int32_t encode_djsk12_insn(LoongArchInsn opc, TCGReg d, TCGReg j, int32_t sk12)
+static int32_t encode_djsk12_insn(LoongArchInsn opc, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     d &= 0x1f;
     j &= 0x1f;
@@ -306,7 +306,7 @@ static int32_t encode_djsk12_insn(LoongArchInsn opc, TCGReg d, TCGReg j, int32_t
     return encode_djk_slots(opc, d, j, sk12);
 }
 
-static int32_t encode_djsk14_insn(LoongArchInsn opc, TCGReg d, TCGReg j, int32_t sk14)
+static int32_t encode_djsk14_insn(LoongArchInsn opc, TCGReg d, TCGReg j, int32_t sk14) __attribute__((unused))
 {
     d &= 0x1f;
     j &= 0x1f;
@@ -314,7 +314,7 @@ static int32_t encode_djsk14_insn(LoongArchInsn opc, TCGReg d, TCGReg j, int32_t
     return encode_djk_slots(opc, d, j, sk14);
 }
 
-static int32_t encode_djsk16_insn(LoongArchInsn opc, TCGReg d, TCGReg j, int32_t sk16)
+static int32_t encode_djsk16_insn(LoongArchInsn opc, TCGReg d, TCGReg j, int32_t sk16) __attribute__((unused))
 {
     d &= 0x1f;
     j &= 0x1f;
@@ -322,7 +322,7 @@ static int32_t encode_djsk16_insn(LoongArchInsn opc, TCGReg d, TCGReg j, int32_t
     return encode_djk_slots(opc, d, j, sk16);
 }
 
-static int32_t encode_djuk12_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t uk12)
+static int32_t encode_djuk12_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t uk12) __attribute__((unused))
 {
     d &= 0x1f;
     j &= 0x1f;
@@ -330,7 +330,7 @@ static int32_t encode_djuk12_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_
     return encode_djk_slots(opc, d, j, uk12);
 }
 
-static int32_t encode_djuk14_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t uk14)
+static int32_t encode_djuk14_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t uk14) __attribute__((unused))
 {
     d &= 0x1f;
     j &= 0x1f;
@@ -338,7 +338,7 @@ static int32_t encode_djuk14_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_
     return encode_djk_slots(opc, d, j, uk14);
 }
 
-static int32_t encode_djuk5_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t uk5)
+static int32_t encode_djuk5_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t uk5) __attribute__((unused))
 {
     d &= 0x1f;
     j &= 0x1f;
@@ -346,7 +346,7 @@ static int32_t encode_djuk5_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t
     return encode_djk_slots(opc, d, j, uk5);
 }
 
-static int32_t encode_djuk5um5_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t uk5, uint32_t um5)
+static int32_t encode_djuk5um5_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t uk5, uint32_t um5) __attribute__((unused))
 {
     d &= 0x1f;
     j &= 0x1f;
@@ -355,7 +355,7 @@ static int32_t encode_djuk5um5_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint3
     return encode_djkm_slots(opc, d, j, uk5, um5);
 }
 
-static int32_t encode_djuk6_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t uk6)
+static int32_t encode_djuk6_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t uk6) __attribute__((unused))
 {
     d &= 0x1f;
     j &= 0x1f;
@@ -363,7 +363,7 @@ static int32_t encode_djuk6_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t
     return encode_djk_slots(opc, d, j, uk6);
 }
 
-static int32_t encode_djuk6um6_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t uk6, uint32_t um6)
+static int32_t encode_djuk6um6_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t uk6, uint32_t um6) __attribute__((unused))
 {
     d &= 0x1f;
     j &= 0x1f;
@@ -372,7 +372,7 @@ static int32_t encode_djuk6um6_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint3
     return encode_djkm_slots(opc, d, j, uk6, um6);
 }
 
-static int32_t encode_djuk8_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t uk8)
+static int32_t encode_djuk8_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t uk8) __attribute__((unused))
 {
     d &= 0x1f;
     j &= 0x1f;
@@ -380,28 +380,28 @@ static int32_t encode_djuk8_insn(LoongArchInsn opc, TCGReg d, TCGReg j, uint32_t
     return encode_djk_slots(opc, d, j, uk8);
 }
 
-static int32_t encode_dsj20_insn(LoongArchInsn opc, TCGReg d, int32_t sj20)
+static int32_t encode_dsj20_insn(LoongArchInsn opc, TCGReg d, int32_t sj20) __attribute__((unused))
 {
     d &= 0x1f;
     sj20 &= 0xfffff;
     return encode_dj_slots(opc, d, sj20);
 }
 
-static int32_t encode_duj5_insn(LoongArchInsn opc, TCGReg d, uint32_t uj5)
+static int32_t encode_duj5_insn(LoongArchInsn opc, TCGReg d, uint32_t uj5) __attribute__((unused))
 {
     d &= 0x1f;
     uj5 &= 0x1f;
     return encode_dj_slots(opc, d, uj5);
 }
 
-static int32_t encode_jk_insn(LoongArchInsn opc, TCGReg j, TCGReg k)
+static int32_t encode_jk_insn(LoongArchInsn opc, TCGReg j, TCGReg k) __attribute__((unused))
 {
     j &= 0x1f;
     k &= 0x1f;
     return encode_jk_slots(opc, j, k);
 }
 
-static int32_t encode_jkud5_insn(LoongArchInsn opc, TCGReg j, TCGReg k, uint32_t ud5)
+static int32_t encode_jkud5_insn(LoongArchInsn opc, TCGReg j, TCGReg k, uint32_t ud5) __attribute__((unused))
 {
     j &= 0x1f;
     k &= 0x1f;
@@ -409,21 +409,21 @@ static int32_t encode_jkud5_insn(LoongArchInsn opc, TCGReg j, TCGReg k, uint32_t
     return encode_djk_slots(opc, ud5, j, k);
 }
 
-static int32_t encode_jsd5k16_insn(LoongArchInsn opc, TCGReg j, int32_t sd5k16)
+static int32_t encode_jsd5k16_insn(LoongArchInsn opc, TCGReg j, int32_t sd5k16) __attribute__((unused))
 {
     j &= 0x1f;
     sd5k16 &= 0x1fffff;
     return encode_djk_slots(opc, (sd5k16 >> 16) & 0x1f, j, sd5k16 & 0xffff);
 }
 
-static int32_t encode_jud5_insn(LoongArchInsn opc, TCGReg j, uint32_t ud5)
+static int32_t encode_jud5_insn(LoongArchInsn opc, TCGReg j, uint32_t ud5) __attribute__((unused))
 {
     j &= 0x1f;
     ud5 &= 0x1f;
     return encode_dj_slots(opc, ud5, j);
 }
 
-static int32_t encode_jud5sk12_insn(LoongArchInsn opc, TCGReg j, uint32_t ud5, int32_t sk12)
+static int32_t encode_jud5sk12_insn(LoongArchInsn opc, TCGReg j, uint32_t ud5, int32_t sk12) __attribute__((unused))
 {
     j &= 0x1f;
     ud5 &= 0x1f;
@@ -431,1383 +431,1383 @@ static int32_t encode_jud5sk12_insn(LoongArchInsn opc, TCGReg j, uint32_t ud5, i
     return encode_djk_slots(opc, ud5, j, sk12);
 }
 
-static int32_t encode_juk8_insn(LoongArchInsn opc, TCGReg j, uint32_t uk8)
+static int32_t encode_juk8_insn(LoongArchInsn opc, TCGReg j, uint32_t uk8) __attribute__((unused))
 {
     j &= 0x1f;
     uk8 &= 0xff;
     return encode_jk_slots(opc, j, uk8);
 }
 
-static int32_t encode_sd10k16_insn(LoongArchInsn opc, int32_t sd10k16)
+static int32_t encode_sd10k16_insn(LoongArchInsn opc, int32_t sd10k16) __attribute__((unused))
 {
     sd10k16 &= 0x3ffffff;
     return encode_dk_slots(opc, (sd10k16 >> 16) & 0x3ff, sd10k16 & 0xffff);
 }
 
-static int32_t encode_ud15_insn(LoongArchInsn opc, uint32_t ud15)
+static int32_t encode_ud15_insn(LoongArchInsn opc, uint32_t ud15) __attribute__((unused))
 {
     ud15 &= 0x7fff;
     return encode_d_slot(opc, ud15);
 }
 
 /* Emits the `clo.w d, j` instruction. */
-static void tcg_out_opc_clo_w(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_clo_w(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_CLO_W, d, j));
 }
 
 /* Emits the `clz.w d, j` instruction. */
-static void tcg_out_opc_clz_w(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_clz_w(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_CLZ_W, d, j));
 }
 
 /* Emits the `cto.w d, j` instruction. */
-static void tcg_out_opc_cto_w(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_cto_w(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_CTO_W, d, j));
 }
 
 /* Emits the `ctz.w d, j` instruction. */
-static void tcg_out_opc_ctz_w(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_ctz_w(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_CTZ_W, d, j));
 }
 
 /* Emits the `clo.d d, j` instruction. */
-static void tcg_out_opc_clo_d(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_clo_d(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_CLO_D, d, j));
 }
 
 /* Emits the `clz.d d, j` instruction. */
-static void tcg_out_opc_clz_d(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_clz_d(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_CLZ_D, d, j));
 }
 
 /* Emits the `cto.d d, j` instruction. */
-static void tcg_out_opc_cto_d(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_cto_d(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_CTO_D, d, j));
 }
 
 /* Emits the `ctz.d d, j` instruction. */
-static void tcg_out_opc_ctz_d(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_ctz_d(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_CTZ_D, d, j));
 }
 
 /* Emits the `revb.2h d, j` instruction. */
-static void tcg_out_opc_revb_2h(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_revb_2h(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_REVB_2H, d, j));
 }
 
 /* Emits the `revb.4h d, j` instruction. */
-static void tcg_out_opc_revb_4h(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_revb_4h(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_REVB_4H, d, j));
 }
 
 /* Emits the `revb.2w d, j` instruction. */
-static void tcg_out_opc_revb_2w(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_revb_2w(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_REVB_2W, d, j));
 }
 
 /* Emits the `revb.d d, j` instruction. */
-static void tcg_out_opc_revb_d(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_revb_d(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_REVB_D, d, j));
 }
 
 /* Emits the `revh.2w d, j` instruction. */
-static void tcg_out_opc_revh_2w(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_revh_2w(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_REVH_2W, d, j));
 }
 
 /* Emits the `revh.d d, j` instruction. */
-static void tcg_out_opc_revh_d(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_revh_d(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_REVH_D, d, j));
 }
 
 /* Emits the `revbit.4b d, j` instruction. */
-static void tcg_out_opc_revbit_4b(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_revbit_4b(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_REVBIT_4B, d, j));
 }
 
 /* Emits the `revbit.8b d, j` instruction. */
-static void tcg_out_opc_revbit_8b(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_revbit_8b(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_REVBIT_8B, d, j));
 }
 
 /* Emits the `revbit.w d, j` instruction. */
-static void tcg_out_opc_revbit_w(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_revbit_w(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_REVBIT_W, d, j));
 }
 
 /* Emits the `revbit.d d, j` instruction. */
-static void tcg_out_opc_revbit_d(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_revbit_d(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_REVBIT_D, d, j));
 }
 
 /* Emits the `sext.h d, j` instruction. */
-static void tcg_out_opc_sext_h(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_sext_h(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_SEXT_H, d, j));
 }
 
 /* Emits the `sext.b d, j` instruction. */
-static void tcg_out_opc_sext_b(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_sext_b(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_SEXT_B, d, j));
 }
 
 /* Emits the `rdtickl.w d, j` instruction. */
-static void tcg_out_opc_rdtickl_w(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_rdtickl_w(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_RDTICKL_W, d, j));
 }
 
 /* Emits the `rdtickh.w d, j` instruction. */
-static void tcg_out_opc_rdtickh_w(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_rdtickh_w(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_RDTICKH_W, d, j));
 }
 
 /* Emits the `rdtick.d d, j` instruction. */
-static void tcg_out_opc_rdtick_d(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_rdtick_d(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_RDTICK_D, d, j));
 }
 
 /* Emits the `cpucfg d, j` instruction. */
-static void tcg_out_opc_cpucfg(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_cpucfg(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_CPUCFG, d, j));
 }
 
 /* Emits the `asrtle j, k` instruction. */
-static void tcg_out_opc_asrtle(TCGContext *s, TCGReg j, TCGReg k)
+static void tcg_out_opc_asrtle(TCGContext *s, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_jk_insn(OPC_ASRTLE, j, k));
 }
 
 /* Emits the `asrtgt j, k` instruction. */
-static void tcg_out_opc_asrtgt(TCGContext *s, TCGReg j, TCGReg k)
+static void tcg_out_opc_asrtgt(TCGContext *s, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_jk_insn(OPC_ASRTGT, j, k));
 }
 
 /* Emits the `sladd.w d, j, k, ua2` instruction. */
-static void tcg_out_opc_sladd_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k, uint32_t ua2)
+static void tcg_out_opc_sladd_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k, uint32_t ua2) __attribute__((unused))
 {
     tcg_out32(s, encode_djkua2_insn(OPC_SLADD_W, d, j, k, ua2));
 }
 
 /* Emits the `sladd.wu d, j, k, ua2` instruction. */
-static void tcg_out_opc_sladd_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k, uint32_t ua2)
+static void tcg_out_opc_sladd_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k, uint32_t ua2) __attribute__((unused))
 {
     tcg_out32(s, encode_djkua2_insn(OPC_SLADD_WU, d, j, k, ua2));
 }
 
 /* Emits the `catpick.w d, j, k, ua2` instruction. */
-static void tcg_out_opc_catpick_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k, uint32_t ua2)
+static void tcg_out_opc_catpick_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k, uint32_t ua2) __attribute__((unused))
 {
     tcg_out32(s, encode_djkua2_insn(OPC_CATPICK_W, d, j, k, ua2));
 }
 
 /* Emits the `catpick.d d, j, k, ua3` instruction. */
-static void tcg_out_opc_catpick_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k, uint32_t ua3)
+static void tcg_out_opc_catpick_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k, uint32_t ua3) __attribute__((unused))
 {
     tcg_out32(s, encode_djkua3_insn(OPC_CATPICK_D, d, j, k, ua3));
 }
 
 /* Emits the `add.w d, j, k` instruction. */
-static void tcg_out_opc_add_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_add_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_ADD_W, d, j, k));
 }
 
 /* Emits the `add.d d, j, k` instruction. */
-static void tcg_out_opc_add_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_add_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_ADD_D, d, j, k));
 }
 
 /* Emits the `sub.w d, j, k` instruction. */
-static void tcg_out_opc_sub_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_sub_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_SUB_W, d, j, k));
 }
 
 /* Emits the `sub.d d, j, k` instruction. */
-static void tcg_out_opc_sub_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_sub_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_SUB_D, d, j, k));
 }
 
 /* Emits the `slt d, j, k` instruction. */
-static void tcg_out_opc_slt(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_slt(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_SLT, d, j, k));
 }
 
 /* Emits the `sltu d, j, k` instruction. */
-static void tcg_out_opc_sltu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_sltu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_SLTU, d, j, k));
 }
 
 /* Emits the `maskeqz d, j, k` instruction. */
-static void tcg_out_opc_maskeqz(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_maskeqz(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_MASKEQZ, d, j, k));
 }
 
 /* Emits the `masknez d, j, k` instruction. */
-static void tcg_out_opc_masknez(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_masknez(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_MASKNEZ, d, j, k));
 }
 
 /* Emits the `nor d, j, k` instruction. */
-static void tcg_out_opc_nor(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_nor(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_NOR, d, j, k));
 }
 
 /* Emits the `and d, j, k` instruction. */
-static void tcg_out_opc_and(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_and(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AND, d, j, k));
 }
 
 /* Emits the `or d, j, k` instruction. */
-static void tcg_out_opc_or(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_or(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_OR, d, j, k));
 }
 
 /* Emits the `xor d, j, k` instruction. */
-static void tcg_out_opc_xor(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_xor(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_XOR, d, j, k));
 }
 
 /* Emits the `orn d, j, k` instruction. */
-static void tcg_out_opc_orn(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_orn(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_ORN, d, j, k));
 }
 
 /* Emits the `andn d, j, k` instruction. */
-static void tcg_out_opc_andn(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_andn(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_ANDN, d, j, k));
 }
 
 /* Emits the `sll.w d, j, k` instruction. */
-static void tcg_out_opc_sll_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_sll_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_SLL_W, d, j, k));
 }
 
 /* Emits the `srl.w d, j, k` instruction. */
-static void tcg_out_opc_srl_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_srl_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_SRL_W, d, j, k));
 }
 
 /* Emits the `sra.w d, j, k` instruction. */
-static void tcg_out_opc_sra_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_sra_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_SRA_W, d, j, k));
 }
 
 /* Emits the `sll.d d, j, k` instruction. */
-static void tcg_out_opc_sll_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_sll_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_SLL_D, d, j, k));
 }
 
 /* Emits the `srl.d d, j, k` instruction. */
-static void tcg_out_opc_srl_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_srl_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_SRL_D, d, j, k));
 }
 
 /* Emits the `sra.d d, j, k` instruction. */
-static void tcg_out_opc_sra_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_sra_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_SRA_D, d, j, k));
 }
 
 /* Emits the `rotr.w d, j, k` instruction. */
-static void tcg_out_opc_rotr_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_rotr_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_ROTR_W, d, j, k));
 }
 
 /* Emits the `rotr.d d, j, k` instruction. */
-static void tcg_out_opc_rotr_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_rotr_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_ROTR_D, d, j, k));
 }
 
 /* Emits the `mul.w d, j, k` instruction. */
-static void tcg_out_opc_mul_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_mul_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_MUL_W, d, j, k));
 }
 
 /* Emits the `mulh.w d, j, k` instruction. */
-static void tcg_out_opc_mulh_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_mulh_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_MULH_W, d, j, k));
 }
 
 /* Emits the `mulh.wu d, j, k` instruction. */
-static void tcg_out_opc_mulh_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_mulh_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_MULH_WU, d, j, k));
 }
 
 /* Emits the `mul.d d, j, k` instruction. */
-static void tcg_out_opc_mul_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_mul_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_MUL_D, d, j, k));
 }
 
 /* Emits the `mulh.d d, j, k` instruction. */
-static void tcg_out_opc_mulh_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_mulh_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_MULH_D, d, j, k));
 }
 
 /* Emits the `mulh.du d, j, k` instruction. */
-static void tcg_out_opc_mulh_du(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_mulh_du(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_MULH_DU, d, j, k));
 }
 
 /* Emits the `mulw.d.w d, j, k` instruction. */
-static void tcg_out_opc_mulw_d_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_mulw_d_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_MULW_D_W, d, j, k));
 }
 
 /* Emits the `mulw.d.wu d, j, k` instruction. */
-static void tcg_out_opc_mulw_d_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_mulw_d_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_MULW_D_WU, d, j, k));
 }
 
 /* Emits the `div.w d, j, k` instruction. */
-static void tcg_out_opc_div_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_div_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_DIV_W, d, j, k));
 }
 
 /* Emits the `mod.w d, j, k` instruction. */
-static void tcg_out_opc_mod_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_mod_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_MOD_W, d, j, k));
 }
 
 /* Emits the `div.wu d, j, k` instruction. */
-static void tcg_out_opc_div_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_div_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_DIV_WU, d, j, k));
 }
 
 /* Emits the `mod.wu d, j, k` instruction. */
-static void tcg_out_opc_mod_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_mod_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_MOD_WU, d, j, k));
 }
 
 /* Emits the `div.d d, j, k` instruction. */
-static void tcg_out_opc_div_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_div_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_DIV_D, d, j, k));
 }
 
 /* Emits the `mod.d d, j, k` instruction. */
-static void tcg_out_opc_mod_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_mod_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_MOD_D, d, j, k));
 }
 
 /* Emits the `div.du d, j, k` instruction. */
-static void tcg_out_opc_div_du(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_div_du(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_DIV_DU, d, j, k));
 }
 
 /* Emits the `mod.du d, j, k` instruction. */
-static void tcg_out_opc_mod_du(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_mod_du(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_MOD_DU, d, j, k));
 }
 
 /* Emits the `crc.w.b.w d, j, k` instruction. */
-static void tcg_out_opc_crc_w_b_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_crc_w_b_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_CRC_W_B_W, d, j, k));
 }
 
 /* Emits the `crc.w.h.w d, j, k` instruction. */
-static void tcg_out_opc_crc_w_h_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_crc_w_h_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_CRC_W_H_W, d, j, k));
 }
 
 /* Emits the `crc.w.w.w d, j, k` instruction. */
-static void tcg_out_opc_crc_w_w_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_crc_w_w_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_CRC_W_W_W, d, j, k));
 }
 
 /* Emits the `crc.w.d.w d, j, k` instruction. */
-static void tcg_out_opc_crc_w_d_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_crc_w_d_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_CRC_W_D_W, d, j, k));
 }
 
 /* Emits the `crcc.w.b.w d, j, k` instruction. */
-static void tcg_out_opc_crcc_w_b_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_crcc_w_b_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_CRCC_W_B_W, d, j, k));
 }
 
 /* Emits the `crcc.w.h.w d, j, k` instruction. */
-static void tcg_out_opc_crcc_w_h_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_crcc_w_h_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_CRCC_W_H_W, d, j, k));
 }
 
 /* Emits the `crcc.w.w.w d, j, k` instruction. */
-static void tcg_out_opc_crcc_w_w_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_crcc_w_w_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_CRCC_W_W_W, d, j, k));
 }
 
 /* Emits the `crcc.w.d.w d, j, k` instruction. */
-static void tcg_out_opc_crcc_w_d_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_crcc_w_d_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_CRCC_W_D_W, d, j, k));
 }
 
 /* Emits the `break ud15` instruction. */
-static void tcg_out_opc_break(TCGContext *s, uint32_t ud15)
+static void tcg_out_opc_break(TCGContext *s, uint32_t ud15) __attribute__((unused))
 {
     tcg_out32(s, encode_ud15_insn(OPC_BREAK, ud15));
 }
 
 /* Emits the `dbgcall ud15` instruction. */
-static void tcg_out_opc_dbgcall(TCGContext *s, uint32_t ud15)
+static void tcg_out_opc_dbgcall(TCGContext *s, uint32_t ud15) __attribute__((unused))
 {
     tcg_out32(s, encode_ud15_insn(OPC_DBGCALL, ud15));
 }
 
 /* Emits the `syscall ud15` instruction. */
-static void tcg_out_opc_syscall(TCGContext *s, uint32_t ud15)
+static void tcg_out_opc_syscall(TCGContext *s, uint32_t ud15) __attribute__((unused))
 {
     tcg_out32(s, encode_ud15_insn(OPC_SYSCALL, ud15));
 }
 
 /* Emits the `sladd.d d, j, k, ua2` instruction. */
-static void tcg_out_opc_sladd_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k, uint32_t ua2)
+static void tcg_out_opc_sladd_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k, uint32_t ua2) __attribute__((unused))
 {
     tcg_out32(s, encode_djkua2_insn(OPC_SLADD_D, d, j, k, ua2));
 }
 
 /* Emits the `slli.w d, j, uk5` instruction. */
-static void tcg_out_opc_slli_w(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk5)
+static void tcg_out_opc_slli_w(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk5) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk5_insn(OPC_SLLI_W, d, j, uk5));
 }
 
 /* Emits the `slli.d d, j, uk6` instruction. */
-static void tcg_out_opc_slli_d(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk6)
+static void tcg_out_opc_slli_d(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk6) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk6_insn(OPC_SLLI_D, d, j, uk6));
 }
 
 /* Emits the `srli.w d, j, uk5` instruction. */
-static void tcg_out_opc_srli_w(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk5)
+static void tcg_out_opc_srli_w(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk5) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk5_insn(OPC_SRLI_W, d, j, uk5));
 }
 
 /* Emits the `srli.d d, j, uk6` instruction. */
-static void tcg_out_opc_srli_d(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk6)
+static void tcg_out_opc_srli_d(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk6) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk6_insn(OPC_SRLI_D, d, j, uk6));
 }
 
 /* Emits the `srai.w d, j, uk5` instruction. */
-static void tcg_out_opc_srai_w(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk5)
+static void tcg_out_opc_srai_w(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk5) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk5_insn(OPC_SRAI_W, d, j, uk5));
 }
 
 /* Emits the `srai.d d, j, uk6` instruction. */
-static void tcg_out_opc_srai_d(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk6)
+static void tcg_out_opc_srai_d(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk6) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk6_insn(OPC_SRAI_D, d, j, uk6));
 }
 
 /* Emits the `rotri.w d, j, uk5` instruction. */
-static void tcg_out_opc_rotri_w(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk5)
+static void tcg_out_opc_rotri_w(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk5) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk5_insn(OPC_ROTRI_W, d, j, uk5));
 }
 
 /* Emits the `rotri.d d, j, uk6` instruction. */
-static void tcg_out_opc_rotri_d(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk6)
+static void tcg_out_opc_rotri_d(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk6) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk6_insn(OPC_ROTRI_D, d, j, uk6));
 }
 
 /* Emits the `bstrins.w d, j, uk5, um5` instruction. */
-static void tcg_out_opc_bstrins_w(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk5, uint32_t um5)
+static void tcg_out_opc_bstrins_w(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk5, uint32_t um5) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk5um5_insn(OPC_BSTRINS_W, d, j, uk5, um5));
 }
 
 /* Emits the `bstrpick.w d, j, uk5, um5` instruction. */
-static void tcg_out_opc_bstrpick_w(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk5, uint32_t um5)
+static void tcg_out_opc_bstrpick_w(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk5, uint32_t um5) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk5um5_insn(OPC_BSTRPICK_W, d, j, uk5, um5));
 }
 
 /* Emits the `bstrins.d d, j, uk6, um6` instruction. */
-static void tcg_out_opc_bstrins_d(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk6, uint32_t um6)
+static void tcg_out_opc_bstrins_d(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk6, uint32_t um6) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk6um6_insn(OPC_BSTRINS_D, d, j, uk6, um6));
 }
 
 /* Emits the `bstrpick.d d, j, uk6, um6` instruction. */
-static void tcg_out_opc_bstrpick_d(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk6, uint32_t um6)
+static void tcg_out_opc_bstrpick_d(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk6, uint32_t um6) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk6um6_insn(OPC_BSTRPICK_D, d, j, uk6, um6));
 }
 
 /* Emits the `fcsrwr j, ud5` instruction. */
-static void tcg_out_opc_fcsrwr(TCGContext *s, TCGReg j, uint32_t ud5)
+static void tcg_out_opc_fcsrwr(TCGContext *s, TCGReg j, uint32_t ud5) __attribute__((unused))
 {
     tcg_out32(s, encode_jud5_insn(OPC_FCSRWR, j, ud5));
 }
 
 /* Emits the `fcsrrd d, uj5` instruction. */
-static void tcg_out_opc_fcsrrd(TCGContext *s, TCGReg d, uint32_t uj5)
+static void tcg_out_opc_fcsrrd(TCGContext *s, TCGReg d, uint32_t uj5) __attribute__((unused))
 {
     tcg_out32(s, encode_duj5_insn(OPC_FCSRRD, d, uj5));
 }
 
 /* Emits the `slti d, j, sk12` instruction. */
-static void tcg_out_opc_slti(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_slti(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_SLTI, d, j, sk12));
 }
 
 /* Emits the `sltui d, j, sk12` instruction. */
-static void tcg_out_opc_sltui(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_sltui(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_SLTUI, d, j, sk12));
 }
 
 /* Emits the `addi.w d, j, sk12` instruction. */
-static void tcg_out_opc_addi_w(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_addi_w(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_ADDI_W, d, j, sk12));
 }
 
 /* Emits the `addi.d d, j, sk12` instruction. */
-static void tcg_out_opc_addi_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_addi_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_ADDI_D, d, j, sk12));
 }
 
 /* Emits the `cu52i.d d, j, sk12` instruction. */
-static void tcg_out_opc_cu52i_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_cu52i_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_CU52I_D, d, j, sk12));
 }
 
 /* Emits the `andi d, j, uk12` instruction. */
-static void tcg_out_opc_andi(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk12)
+static void tcg_out_opc_andi(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk12_insn(OPC_ANDI, d, j, uk12));
 }
 
 /* Emits the `ori d, j, uk12` instruction. */
-static void tcg_out_opc_ori(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk12)
+static void tcg_out_opc_ori(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk12_insn(OPC_ORI, d, j, uk12));
 }
 
 /* Emits the `xori d, j, uk12` instruction. */
-static void tcg_out_opc_xori(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk12)
+static void tcg_out_opc_xori(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk12_insn(OPC_XORI, d, j, uk12));
 }
 
 /* Emits the `csrxchg d, j, uk14` instruction. */
-static void tcg_out_opc_csrxchg(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk14)
+static void tcg_out_opc_csrxchg(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk14) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk14_insn(OPC_CSRXCHG, d, j, uk14));
 }
 
 /* Emits the `cacop j, ud5, sk12` instruction. */
-static void tcg_out_opc_cacop(TCGContext *s, TCGReg j, uint32_t ud5, int32_t sk12)
+static void tcg_out_opc_cacop(TCGContext *s, TCGReg j, uint32_t ud5, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_jud5sk12_insn(OPC_CACOP, j, ud5, sk12));
 }
 
 /* Emits the `lddir d, j, uk8` instruction. */
-static void tcg_out_opc_lddir(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk8)
+static void tcg_out_opc_lddir(TCGContext *s, TCGReg d, TCGReg j, uint32_t uk8) __attribute__((unused))
 {
     tcg_out32(s, encode_djuk8_insn(OPC_LDDIR, d, j, uk8));
 }
 
 /* Emits the `ldpte j, uk8` instruction. */
-static void tcg_out_opc_ldpte(TCGContext *s, TCGReg j, uint32_t uk8)
+static void tcg_out_opc_ldpte(TCGContext *s, TCGReg j, uint32_t uk8) __attribute__((unused))
 {
     tcg_out32(s, encode_juk8_insn(OPC_LDPTE, j, uk8));
 }
 
 /* Emits the `iocsrrd.b d, j` instruction. */
-static void tcg_out_opc_iocsrrd_b(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_iocsrrd_b(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_IOCSRRD_B, d, j));
 }
 
 /* Emits the `iocsrrd.h d, j` instruction. */
-static void tcg_out_opc_iocsrrd_h(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_iocsrrd_h(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_IOCSRRD_H, d, j));
 }
 
 /* Emits the `iocsrrd.w d, j` instruction. */
-static void tcg_out_opc_iocsrrd_w(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_iocsrrd_w(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_IOCSRRD_W, d, j));
 }
 
 /* Emits the `iocsrrd.d d, j` instruction. */
-static void tcg_out_opc_iocsrrd_d(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_iocsrrd_d(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_IOCSRRD_D, d, j));
 }
 
 /* Emits the `iocsrwr.b d, j` instruction. */
-static void tcg_out_opc_iocsrwr_b(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_iocsrwr_b(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_IOCSRWR_B, d, j));
 }
 
 /* Emits the `iocsrwr.h d, j` instruction. */
-static void tcg_out_opc_iocsrwr_h(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_iocsrwr_h(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_IOCSRWR_H, d, j));
 }
 
 /* Emits the `iocsrwr.w d, j` instruction. */
-static void tcg_out_opc_iocsrwr_w(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_iocsrwr_w(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_IOCSRWR_W, d, j));
 }
 
 /* Emits the `iocsrwr.d d, j` instruction. */
-static void tcg_out_opc_iocsrwr_d(TCGContext *s, TCGReg d, TCGReg j)
+static void tcg_out_opc_iocsrwr_d(TCGContext *s, TCGReg d, TCGReg j) __attribute__((unused))
 {
     tcg_out32(s, encode_dj_insn(OPC_IOCSRWR_D, d, j));
 }
 
 /* Emits the `tlbclr` instruction. */
-static void tcg_out_opc_tlbclr(TCGContext *s)
+static void tcg_out_opc_tlbclr(TCGContext *s) __attribute__((unused))
 {
     tcg_out32(s, OPC_TLBCLR);
 }
 
 /* Emits the `tlbflush` instruction. */
-static void tcg_out_opc_tlbflush(TCGContext *s)
+static void tcg_out_opc_tlbflush(TCGContext *s) __attribute__((unused))
 {
     tcg_out32(s, OPC_TLBFLUSH);
 }
 
 /* Emits the `tlbsrch` instruction. */
-static void tcg_out_opc_tlbsrch(TCGContext *s)
+static void tcg_out_opc_tlbsrch(TCGContext *s) __attribute__((unused))
 {
     tcg_out32(s, OPC_TLBSRCH);
 }
 
 /* Emits the `tlbrd` instruction. */
-static void tcg_out_opc_tlbrd(TCGContext *s)
+static void tcg_out_opc_tlbrd(TCGContext *s) __attribute__((unused))
 {
     tcg_out32(s, OPC_TLBRD);
 }
 
 /* Emits the `tlbwr` instruction. */
-static void tcg_out_opc_tlbwr(TCGContext *s)
+static void tcg_out_opc_tlbwr(TCGContext *s) __attribute__((unused))
 {
     tcg_out32(s, OPC_TLBWR);
 }
 
 /* Emits the `tlbfill` instruction. */
-static void tcg_out_opc_tlbfill(TCGContext *s)
+static void tcg_out_opc_tlbfill(TCGContext *s) __attribute__((unused))
 {
     tcg_out32(s, OPC_TLBFILL);
 }
 
 /* Emits the `eret` instruction. */
-static void tcg_out_opc_eret(TCGContext *s)
+static void tcg_out_opc_eret(TCGContext *s) __attribute__((unused))
 {
     tcg_out32(s, OPC_ERET);
 }
 
 /* Emits the `idle ud15` instruction. */
-static void tcg_out_opc_idle(TCGContext *s, uint32_t ud15)
+static void tcg_out_opc_idle(TCGContext *s, uint32_t ud15) __attribute__((unused))
 {
     tcg_out32(s, encode_ud15_insn(OPC_IDLE, ud15));
 }
 
 /* Emits the `tlbinv j, k, ud5` instruction. */
-static void tcg_out_opc_tlbinv(TCGContext *s, TCGReg j, TCGReg k, uint32_t ud5)
+static void tcg_out_opc_tlbinv(TCGContext *s, TCGReg j, TCGReg k, uint32_t ud5) __attribute__((unused))
 {
     tcg_out32(s, encode_jkud5_insn(OPC_TLBINV, j, k, ud5));
 }
 
 /* Emits the `addu16i.d d, j, sk16` instruction. */
-static void tcg_out_opc_addu16i_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16)
+static void tcg_out_opc_addu16i_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk16_insn(OPC_ADDU16I_D, d, j, sk16));
 }
 
 /* Emits the `lu12i.w d, sj20` instruction. */
-static void tcg_out_opc_lu12i_w(TCGContext *s, TCGReg d, int32_t sj20)
+static void tcg_out_opc_lu12i_w(TCGContext *s, TCGReg d, int32_t sj20) __attribute__((unused))
 {
     tcg_out32(s, encode_dsj20_insn(OPC_LU12I_W, d, sj20));
 }
 
 /* Emits the `cu32i.d d, sj20` instruction. */
-static void tcg_out_opc_cu32i_d(TCGContext *s, TCGReg d, int32_t sj20)
+static void tcg_out_opc_cu32i_d(TCGContext *s, TCGReg d, int32_t sj20) __attribute__((unused))
 {
     tcg_out32(s, encode_dsj20_insn(OPC_CU32I_D, d, sj20));
 }
 
 /* Emits the `pcaddu2i d, sj20` instruction. */
-static void tcg_out_opc_pcaddu2i(TCGContext *s, TCGReg d, int32_t sj20)
+static void tcg_out_opc_pcaddu2i(TCGContext *s, TCGReg d, int32_t sj20) __attribute__((unused))
 {
     tcg_out32(s, encode_dsj20_insn(OPC_PCADDU2I, d, sj20));
 }
 
 /* Emits the `pcalau12i d, sj20` instruction. */
-static void tcg_out_opc_pcalau12i(TCGContext *s, TCGReg d, int32_t sj20)
+static void tcg_out_opc_pcalau12i(TCGContext *s, TCGReg d, int32_t sj20) __attribute__((unused))
 {
     tcg_out32(s, encode_dsj20_insn(OPC_PCALAU12I, d, sj20));
 }
 
 /* Emits the `pcaddu12i d, sj20` instruction. */
-static void tcg_out_opc_pcaddu12i(TCGContext *s, TCGReg d, int32_t sj20)
+static void tcg_out_opc_pcaddu12i(TCGContext *s, TCGReg d, int32_t sj20) __attribute__((unused))
 {
     tcg_out32(s, encode_dsj20_insn(OPC_PCADDU12I, d, sj20));
 }
 
 /* Emits the `pcaddu18i d, sj20` instruction. */
-static void tcg_out_opc_pcaddu18i(TCGContext *s, TCGReg d, int32_t sj20)
+static void tcg_out_opc_pcaddu18i(TCGContext *s, TCGReg d, int32_t sj20) __attribute__((unused))
 {
     tcg_out32(s, encode_dsj20_insn(OPC_PCADDU18I, d, sj20));
 }
 
 /* Emits the `ll.w d, j, sk14` instruction. */
-static void tcg_out_opc_ll_w(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14)
+static void tcg_out_opc_ll_w(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk14_insn(OPC_LL_W, d, j, sk14));
 }
 
 /* Emits the `sc.w d, j, sk14` instruction. */
-static void tcg_out_opc_sc_w(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14)
+static void tcg_out_opc_sc_w(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk14_insn(OPC_SC_W, d, j, sk14));
 }
 
 /* Emits the `ll.d d, j, sk14` instruction. */
-static void tcg_out_opc_ll_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14)
+static void tcg_out_opc_ll_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk14_insn(OPC_LL_D, d, j, sk14));
 }
 
 /* Emits the `sc.d d, j, sk14` instruction. */
-static void tcg_out_opc_sc_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14)
+static void tcg_out_opc_sc_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk14_insn(OPC_SC_D, d, j, sk14));
 }
 
 /* Emits the `ldox4.w d, j, sk14` instruction. */
-static void tcg_out_opc_ldox4_w(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14)
+static void tcg_out_opc_ldox4_w(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk14_insn(OPC_LDOX4_W, d, j, sk14));
 }
 
 /* Emits the `stox4.w d, j, sk14` instruction. */
-static void tcg_out_opc_stox4_w(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14)
+static void tcg_out_opc_stox4_w(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk14_insn(OPC_STOX4_W, d, j, sk14));
 }
 
 /* Emits the `ldox4.d d, j, sk14` instruction. */
-static void tcg_out_opc_ldox4_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14)
+static void tcg_out_opc_ldox4_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk14_insn(OPC_LDOX4_D, d, j, sk14));
 }
 
 /* Emits the `stox4.d d, j, sk14` instruction. */
-static void tcg_out_opc_stox4_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14)
+static void tcg_out_opc_stox4_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk14) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk14_insn(OPC_STOX4_D, d, j, sk14));
 }
 
 /* Emits the `ld.b d, j, sk12` instruction. */
-static void tcg_out_opc_ld_b(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_ld_b(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_LD_B, d, j, sk12));
 }
 
 /* Emits the `ld.h d, j, sk12` instruction. */
-static void tcg_out_opc_ld_h(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_ld_h(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_LD_H, d, j, sk12));
 }
 
 /* Emits the `ld.w d, j, sk12` instruction. */
-static void tcg_out_opc_ld_w(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_ld_w(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_LD_W, d, j, sk12));
 }
 
 /* Emits the `ld.d d, j, sk12` instruction. */
-static void tcg_out_opc_ld_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_ld_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_LD_D, d, j, sk12));
 }
 
 /* Emits the `st.b d, j, sk12` instruction. */
-static void tcg_out_opc_st_b(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_st_b(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_ST_B, d, j, sk12));
 }
 
 /* Emits the `st.h d, j, sk12` instruction. */
-static void tcg_out_opc_st_h(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_st_h(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_ST_H, d, j, sk12));
 }
 
 /* Emits the `st.w d, j, sk12` instruction. */
-static void tcg_out_opc_st_w(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_st_w(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_ST_W, d, j, sk12));
 }
 
 /* Emits the `st.d d, j, sk12` instruction. */
-static void tcg_out_opc_st_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_st_d(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_ST_D, d, j, sk12));
 }
 
 /* Emits the `ld.bu d, j, sk12` instruction. */
-static void tcg_out_opc_ld_bu(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_ld_bu(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_LD_BU, d, j, sk12));
 }
 
 /* Emits the `ld.hu d, j, sk12` instruction. */
-static void tcg_out_opc_ld_hu(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_ld_hu(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_LD_HU, d, j, sk12));
 }
 
 /* Emits the `ld.wu d, j, sk12` instruction. */
-static void tcg_out_opc_ld_wu(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12)
+static void tcg_out_opc_ld_wu(TCGContext *s, TCGReg d, TCGReg j, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk12_insn(OPC_LD_WU, d, j, sk12));
 }
 
 /* Emits the `preld j, ud5, sk12` instruction. */
-static void tcg_out_opc_preld(TCGContext *s, TCGReg j, uint32_t ud5, int32_t sk12)
+static void tcg_out_opc_preld(TCGContext *s, TCGReg j, uint32_t ud5, int32_t sk12) __attribute__((unused))
 {
     tcg_out32(s, encode_jud5sk12_insn(OPC_PRELD, j, ud5, sk12));
 }
 
 /* Emits the `ldx.b d, j, k` instruction. */
-static void tcg_out_opc_ldx_b(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldx_b(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDX_B, d, j, k));
 }
 
 /* Emits the `ldx.h d, j, k` instruction. */
-static void tcg_out_opc_ldx_h(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldx_h(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDX_H, d, j, k));
 }
 
 /* Emits the `ldx.w d, j, k` instruction. */
-static void tcg_out_opc_ldx_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldx_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDX_W, d, j, k));
 }
 
 /* Emits the `ldx.d d, j, k` instruction. */
-static void tcg_out_opc_ldx_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldx_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDX_D, d, j, k));
 }
 
 /* Emits the `stx.b d, j, k` instruction. */
-static void tcg_out_opc_stx_b(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_stx_b(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_STX_B, d, j, k));
 }
 
 /* Emits the `stx.h d, j, k` instruction. */
-static void tcg_out_opc_stx_h(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_stx_h(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_STX_H, d, j, k));
 }
 
 /* Emits the `stx.w d, j, k` instruction. */
-static void tcg_out_opc_stx_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_stx_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_STX_W, d, j, k));
 }
 
 /* Emits the `stx.d d, j, k` instruction. */
-static void tcg_out_opc_stx_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_stx_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_STX_D, d, j, k));
 }
 
 /* Emits the `ldx.bu d, j, k` instruction. */
-static void tcg_out_opc_ldx_bu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldx_bu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDX_BU, d, j, k));
 }
 
 /* Emits the `ldx.hu d, j, k` instruction. */
-static void tcg_out_opc_ldx_hu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldx_hu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDX_HU, d, j, k));
 }
 
 /* Emits the `ldx.wu d, j, k` instruction. */
-static void tcg_out_opc_ldx_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldx_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDX_WU, d, j, k));
 }
 
 /* Emits the `preldx j, k, ud5` instruction. */
-static void tcg_out_opc_preldx(TCGContext *s, TCGReg j, TCGReg k, uint32_t ud5)
+static void tcg_out_opc_preldx(TCGContext *s, TCGReg j, TCGReg k, uint32_t ud5) __attribute__((unused))
 {
     tcg_out32(s, encode_jkud5_insn(OPC_PRELDX, j, k, ud5));
 }
 
 /* Emits the `amswap.w d, j, k` instruction. */
-static void tcg_out_opc_amswap_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amswap_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMSWAP_W, d, j, k));
 }
 
 /* Emits the `amswap.d d, j, k` instruction. */
-static void tcg_out_opc_amswap_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amswap_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMSWAP_D, d, j, k));
 }
 
 /* Emits the `amadd.w d, j, k` instruction. */
-static void tcg_out_opc_amadd_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amadd_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMADD_W, d, j, k));
 }
 
 /* Emits the `amadd.d d, j, k` instruction. */
-static void tcg_out_opc_amadd_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amadd_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMADD_D, d, j, k));
 }
 
 /* Emits the `amand.w d, j, k` instruction. */
-static void tcg_out_opc_amand_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amand_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMAND_W, d, j, k));
 }
 
 /* Emits the `amand.d d, j, k` instruction. */
-static void tcg_out_opc_amand_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amand_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMAND_D, d, j, k));
 }
 
 /* Emits the `amor.w d, j, k` instruction. */
-static void tcg_out_opc_amor_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amor_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMOR_W, d, j, k));
 }
 
 /* Emits the `amor.d d, j, k` instruction. */
-static void tcg_out_opc_amor_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amor_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMOR_D, d, j, k));
 }
 
 /* Emits the `amxor.w d, j, k` instruction. */
-static void tcg_out_opc_amxor_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amxor_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMXOR_W, d, j, k));
 }
 
 /* Emits the `amxor.d d, j, k` instruction. */
-static void tcg_out_opc_amxor_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amxor_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMXOR_D, d, j, k));
 }
 
 /* Emits the `ammax.w d, j, k` instruction. */
-static void tcg_out_opc_ammax_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammax_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMAX_W, d, j, k));
 }
 
 /* Emits the `ammax.d d, j, k` instruction. */
-static void tcg_out_opc_ammax_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammax_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMAX_D, d, j, k));
 }
 
 /* Emits the `ammin.w d, j, k` instruction. */
-static void tcg_out_opc_ammin_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammin_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMIN_W, d, j, k));
 }
 
 /* Emits the `ammin.d d, j, k` instruction. */
-static void tcg_out_opc_ammin_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammin_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMIN_D, d, j, k));
 }
 
 /* Emits the `ammax.wu d, j, k` instruction. */
-static void tcg_out_opc_ammax_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammax_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMAX_WU, d, j, k));
 }
 
 /* Emits the `ammax.du d, j, k` instruction. */
-static void tcg_out_opc_ammax_du(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammax_du(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMAX_DU, d, j, k));
 }
 
 /* Emits the `ammin.wu d, j, k` instruction. */
-static void tcg_out_opc_ammin_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammin_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMIN_WU, d, j, k));
 }
 
 /* Emits the `ammin.du d, j, k` instruction. */
-static void tcg_out_opc_ammin_du(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammin_du(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMIN_DU, d, j, k));
 }
 
 /* Emits the `amswap_db.w d, j, k` instruction. */
-static void tcg_out_opc_amswap_db_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amswap_db_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMSWAP_DB_W, d, j, k));
 }
 
 /* Emits the `amswap_db.d d, j, k` instruction. */
-static void tcg_out_opc_amswap_db_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amswap_db_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMSWAP_DB_D, d, j, k));
 }
 
 /* Emits the `amadd_db.w d, j, k` instruction. */
-static void tcg_out_opc_amadd_db_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amadd_db_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMADD_DB_W, d, j, k));
 }
 
 /* Emits the `amadd_db.d d, j, k` instruction. */
-static void tcg_out_opc_amadd_db_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amadd_db_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMADD_DB_D, d, j, k));
 }
 
 /* Emits the `amand_db.w d, j, k` instruction. */
-static void tcg_out_opc_amand_db_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amand_db_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMAND_DB_W, d, j, k));
 }
 
 /* Emits the `amand_db.d d, j, k` instruction. */
-static void tcg_out_opc_amand_db_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amand_db_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMAND_DB_D, d, j, k));
 }
 
 /* Emits the `amor_db.w d, j, k` instruction. */
-static void tcg_out_opc_amor_db_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amor_db_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMOR_DB_W, d, j, k));
 }
 
 /* Emits the `amor_db.d d, j, k` instruction. */
-static void tcg_out_opc_amor_db_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amor_db_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMOR_DB_D, d, j, k));
 }
 
 /* Emits the `amxor_db.w d, j, k` instruction. */
-static void tcg_out_opc_amxor_db_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amxor_db_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMXOR_DB_W, d, j, k));
 }
 
 /* Emits the `amxor_db.d d, j, k` instruction. */
-static void tcg_out_opc_amxor_db_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_amxor_db_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMXOR_DB_D, d, j, k));
 }
 
 /* Emits the `ammax_db.w d, j, k` instruction. */
-static void tcg_out_opc_ammax_db_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammax_db_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMAX_DB_W, d, j, k));
 }
 
 /* Emits the `ammax_db.d d, j, k` instruction. */
-static void tcg_out_opc_ammax_db_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammax_db_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMAX_DB_D, d, j, k));
 }
 
 /* Emits the `ammin_db.w d, j, k` instruction. */
-static void tcg_out_opc_ammin_db_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammin_db_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMIN_DB_W, d, j, k));
 }
 
 /* Emits the `ammin_db.d d, j, k` instruction. */
-static void tcg_out_opc_ammin_db_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammin_db_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMIN_DB_D, d, j, k));
 }
 
 /* Emits the `ammax_db.wu d, j, k` instruction. */
-static void tcg_out_opc_ammax_db_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammax_db_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMAX_DB_WU, d, j, k));
 }
 
 /* Emits the `ammax_db.du d, j, k` instruction. */
-static void tcg_out_opc_ammax_db_du(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammax_db_du(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMAX_DB_DU, d, j, k));
 }
 
 /* Emits the `ammin_db.wu d, j, k` instruction. */
-static void tcg_out_opc_ammin_db_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammin_db_wu(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMIN_DB_WU, d, j, k));
 }
 
 /* Emits the `ammin_db.du d, j, k` instruction. */
-static void tcg_out_opc_ammin_db_du(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ammin_db_du(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_AMMIN_DB_DU, d, j, k));
 }
 
 /* Emits the `dbar ud15` instruction. */
-static void tcg_out_opc_dbar(TCGContext *s, uint32_t ud15)
+static void tcg_out_opc_dbar(TCGContext *s, uint32_t ud15) __attribute__((unused))
 {
     tcg_out32(s, encode_ud15_insn(OPC_DBAR, ud15));
 }
 
 /* Emits the `ibar ud15` instruction. */
-static void tcg_out_opc_ibar(TCGContext *s, uint32_t ud15)
+static void tcg_out_opc_ibar(TCGContext *s, uint32_t ud15) __attribute__((unused))
 {
     tcg_out32(s, encode_ud15_insn(OPC_IBAR, ud15));
 }
 
 /* Emits the `ldgt.b d, j, k` instruction. */
-static void tcg_out_opc_ldgt_b(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldgt_b(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDGT_B, d, j, k));
 }
 
 /* Emits the `ldgt.h d, j, k` instruction. */
-static void tcg_out_opc_ldgt_h(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldgt_h(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDGT_H, d, j, k));
 }
 
 /* Emits the `ldgt.w d, j, k` instruction. */
-static void tcg_out_opc_ldgt_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldgt_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDGT_W, d, j, k));
 }
 
 /* Emits the `ldgt.d d, j, k` instruction. */
-static void tcg_out_opc_ldgt_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldgt_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDGT_D, d, j, k));
 }
 
 /* Emits the `ldle.b d, j, k` instruction. */
-static void tcg_out_opc_ldle_b(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldle_b(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDLE_B, d, j, k));
 }
 
 /* Emits the `ldle.h d, j, k` instruction. */
-static void tcg_out_opc_ldle_h(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldle_h(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDLE_H, d, j, k));
 }
 
 /* Emits the `ldle.w d, j, k` instruction. */
-static void tcg_out_opc_ldle_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldle_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDLE_W, d, j, k));
 }
 
 /* Emits the `ldle.d d, j, k` instruction. */
-static void tcg_out_opc_ldle_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_ldle_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_LDLE_D, d, j, k));
 }
 
 /* Emits the `stgt.b d, j, k` instruction. */
-static void tcg_out_opc_stgt_b(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_stgt_b(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_STGT_B, d, j, k));
 }
 
 /* Emits the `stgt.h d, j, k` instruction. */
-static void tcg_out_opc_stgt_h(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_stgt_h(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_STGT_H, d, j, k));
 }
 
 /* Emits the `stgt.w d, j, k` instruction. */
-static void tcg_out_opc_stgt_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_stgt_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_STGT_W, d, j, k));
 }
 
 /* Emits the `stgt.d d, j, k` instruction. */
-static void tcg_out_opc_stgt_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_stgt_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_STGT_D, d, j, k));
 }
 
 /* Emits the `stle.b d, j, k` instruction. */
-static void tcg_out_opc_stle_b(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_stle_b(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_STLE_B, d, j, k));
 }
 
 /* Emits the `stle.h d, j, k` instruction. */
-static void tcg_out_opc_stle_h(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_stle_h(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_STLE_H, d, j, k));
 }
 
 /* Emits the `stle.w d, j, k` instruction. */
-static void tcg_out_opc_stle_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_stle_w(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_STLE_W, d, j, k));
 }
 
 /* Emits the `stle.d d, j, k` instruction. */
-static void tcg_out_opc_stle_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k)
+static void tcg_out_opc_stle_d(TCGContext *s, TCGReg d, TCGReg j, TCGReg k) __attribute__((unused))
 {
     tcg_out32(s, encode_djk_insn(OPC_STLE_D, d, j, k));
 }
 
 /* Emits the `beqz j, sd5k16` instruction. */
-static void tcg_out_opc_beqz(TCGContext *s, TCGReg j, int32_t sd5k16)
+static void tcg_out_opc_beqz(TCGContext *s, TCGReg j, int32_t sd5k16) __attribute__((unused))
 {
     tcg_out32(s, encode_jsd5k16_insn(OPC_BEQZ, j, sd5k16));
 }
 
 /* Emits the `bnez j, sd5k16` instruction. */
-static void tcg_out_opc_bnez(TCGContext *s, TCGReg j, int32_t sd5k16)
+static void tcg_out_opc_bnez(TCGContext *s, TCGReg j, int32_t sd5k16) __attribute__((unused))
 {
     tcg_out32(s, encode_jsd5k16_insn(OPC_BNEZ, j, sd5k16));
 }
 
 /* Emits the `jirl d, j, sk16` instruction. */
-static void tcg_out_opc_jirl(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16)
+static void tcg_out_opc_jirl(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk16_insn(OPC_JIRL, d, j, sk16));
 }
 
 /* Emits the `b sd10k16` instruction. */
-static void tcg_out_opc_b(TCGContext *s, int32_t sd10k16)
+static void tcg_out_opc_b(TCGContext *s, int32_t sd10k16) __attribute__((unused))
 {
     tcg_out32(s, encode_sd10k16_insn(OPC_B, sd10k16));
 }
 
 /* Emits the `bl sd10k16` instruction. */
-static void tcg_out_opc_bl(TCGContext *s, int32_t sd10k16)
+static void tcg_out_opc_bl(TCGContext *s, int32_t sd10k16) __attribute__((unused))
 {
     tcg_out32(s, encode_sd10k16_insn(OPC_BL, sd10k16));
 }
 
 /* Emits the `beq d, j, sk16` instruction. */
-static void tcg_out_opc_beq(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16)
+static void tcg_out_opc_beq(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk16_insn(OPC_BEQ, d, j, sk16));
 }
 
 /* Emits the `bne d, j, sk16` instruction. */
-static void tcg_out_opc_bne(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16)
+static void tcg_out_opc_bne(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk16_insn(OPC_BNE, d, j, sk16));
 }
 
 /* Emits the `bgt d, j, sk16` instruction. */
-static void tcg_out_opc_bgt(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16)
+static void tcg_out_opc_bgt(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk16_insn(OPC_BGT, d, j, sk16));
 }
 
 /* Emits the `ble d, j, sk16` instruction. */
-static void tcg_out_opc_ble(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16)
+static void tcg_out_opc_ble(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk16_insn(OPC_BLE, d, j, sk16));
 }
 
 /* Emits the `bgtu d, j, sk16` instruction. */
-static void tcg_out_opc_bgtu(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16)
+static void tcg_out_opc_bgtu(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk16_insn(OPC_BGTU, d, j, sk16));
 }
 
 /* Emits the `bleu d, j, sk16` instruction. */
-static void tcg_out_opc_bleu(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16)
+static void tcg_out_opc_bleu(TCGContext *s, TCGReg d, TCGReg j, int32_t sk16) __attribute__((unused))
 {
     tcg_out32(s, encode_djsk16_insn(OPC_BLEU, d, j, sk16));
 }
