@@ -265,68 +265,49 @@ static bool tcg_out_mov(TCGContext *s, TCGType type, TCGReg ret, TCGReg arg)
 static void tcg_out_movi(TCGContext *s, TCGType type, TCGReg rd,
                          tcg_target_long val)
 {
-    tcg_target_long lo, hi, tmp;
+    tcg_target_long low, upper, higher, top, tmp;
     int shift, ret;
 
     if (TCG_TARGET_REG_BITS == 64 && type == TCG_TYPE_I32) {
         val = (int32_t)val;
     }
 
-    lo = sextreg(val, 0, 12);
-    if (val == lo) {
-        tcg_out_opc_imm(s, OPC_ADDI, rd, TCG_REG_ZERO, lo);
+    /* Single-instruction cases. */
+    low = sextreg(val, 0, 12);
+    if (low == val) {
+        /* val fits in simm12: addi.w rd, zero, val */
+        tcg_out_opc_addi_w(s, rd, TCG_REG_ZERO, val);
+        return;
+    }
+    if (0x800 <= val && val <= 0xfff) {
+       /* val fits in uimm12: ori rd, zero, val */
+        tcg_out_opc_ori(s, rd, TCG_REG_ZERO, val);
         return;
     }
 
-    hi = val - lo;
-    if (TCG_TARGET_REG_BITS == 32 || val == (int32_t)val) {
-        tcg_out_opc_upper(s, OPC_LUI, rd, hi);
-        if (lo != 0) {
-            tcg_out_opc_addi_w(s, rd, rd, lo);
-        }
-        return;
+    /* Chop upper bits into 3 immediate-field-sized segments respectively. */
+    upper = (val >> 12) & 0xfffff;
+    higher = (val >> 32) & 0xfffff;
+    top = val >> 52;
+
+    tcg_out_opc_lu12i_w(s, rd, upper);
+    if (low != 0) {
+        tcg_out_opc_ori(s, rd, rd, low);
     }
 
-    /* We can only be here if TCG_TARGET_REG_BITS != 32 */
-    tmp = tcg_pcrel_diff(s, (void *)val);
-    if (tmp == (int32_t)tmp) {
-        tcg_out_opc_upper(s, OPC_AUIPC, rd, 0);
-        tcg_out_opc_imm(s, OPC_ADDI, rd, rd, 0);
-        ret = reloc_call(s->code_ptr - 2, (const tcg_insn_unit *)val);
-        tcg_debug_assert(ret == true);
+    if (sextreg(val, 0, 32) == val) {
+        /* Fits in 32-bits, upper bits are already properly sign-extended by
+           lu12i.w. */
         return;
     }
+    tcg_out_opc_cu32i_d(s, rd, rd, higher);
 
-    /* Look for a single 20-bit section.  */
-    shift = ctz64(val);
-    tmp = val >> shift;
-    if (tmp == sextreg(tmp, 0, 20)) {
-        tcg_out_opc_upper(s, OPC_LUI, rd, tmp << 12);
-        if (shift > 12) {
-            tcg_out_opc_slli_d(s, rd, rd, shift - 12);
-        } else {
-            tcg_out_opc_imm(s, OPC_SRAI, rd, rd, 12 - shift);
-        }
+    if (sextreg(val, 0, 52) == val) {
+        /* Fits in 52-bits, upper bits are already properly sign-extended by
+           cu32i.d. */
         return;
     }
-
-    /* Look for a few high zero bits, with lots of bits set in the middle.  */
-    shift = clz64(val);
-    tmp = val << shift;
-    if (tmp == sextreg(tmp, 12, 20) << 12) {
-        tcg_out_opc_upper(s, OPC_LUI, rd, tmp);
-        tcg_out_opc_srli_d(s, rd, rd, shift);
-        return;
-    } else if (tmp == sextreg(tmp, 0, 12)) {
-        tcg_out_opc_imm(s, OPC_ADDI, rd, TCG_REG_ZERO, tmp);
-        tcg_out_opc_srli_d(s, rd, rd, shift);
-        return;
-    }
-
-    /* Drop into the constant pool.  */
-    new_pool_label(s, val, R_RISCV_CALL, s->code_ptr, 0);
-    tcg_out_opc_upper(s, OPC_AUIPC, rd, 0);
-    tcg_out_opc_ld_d(s, rd, rd, 0);
+    tcg_out_opc_cu52i_d(s, rd, rd, top);
 }
 
 static void tcg_out_ext8u(TCGContext *s, TCGReg ret, TCGReg arg)
@@ -373,7 +354,7 @@ static void tcg_out_ldst(TCGContext *s, LoongArchInsn opc, TCGReg data,
         } else {
             tcg_out_movi(s, TCG_TYPE_PTR, TCG_REG_TMP2, offset - imm12);
             if (addr != TCG_REG_ZERO) {
-                tcg_out_opc_reg(s, OPC_ADD, TCG_REG_TMP2, TCG_REG_TMP2, addr);
+                tcg_out_opc_add_d(s, TCG_REG_TMP2, TCG_REG_TMP2, addr);
             }
         }
         addr = TCG_REG_TMP2;
@@ -444,9 +425,9 @@ static void tcg_out_addsub2(TCGContext *s,
     /* By operating on the high part first, we get to use the final
        carry operation to move back from the temporary.  */
     if (!cbh) {
-        tcg_out_opc_reg(s, (is_sub ? opc_sub : opc_add), th, ah, bh);
+        tcg_out32(s, encode_djk_insn((is_sub ? opc_sub : opc_add), th, ah, bh));
     } else if (bh != 0 || ah == rl) {
-        tcg_out_opc_imm(s, opc_addi, th, ah, (is_sub ? -bh : bh));
+        tcg_out32(s, encode_djsk12_insn(opc_addi, th, ah, (is_sub ? -bh : bh)));
     } else {
         th = ah;
     }
@@ -454,26 +435,26 @@ static void tcg_out_addsub2(TCGContext *s,
     /* Note that tcg optimization should eliminate the bl == 0 case.  */
     if (is_sub) {
         if (cbl) {
-            tcg_out_opc_imm(s, OPC_SLTIU, TCG_REG_TMP0, al, bl);
-            tcg_out_opc_imm(s, opc_addi, rl, al, -bl);
+            tcg_out_opc_sltui(s, TCG_REG_TMP0, al, bl);
+            tcg_out32(s, encode_djsk12_insn(opc_addi, rl, al, -bl));
         } else {
-            tcg_out_opc_reg(s, OPC_SLTU, TCG_REG_TMP0, al, bl);
-            tcg_out_opc_reg(s, opc_sub, rl, al, bl);
+            tcg_out_opc_sltu(s, TCG_REG_TMP0, al, bl);
+            tcg_out32(s, encode_djk_insn(opc_sub, rl, al, bl));
         }
-        tcg_out_opc_reg(s, opc_sub, rh, th, TCG_REG_TMP0);
+        tcg_out32(s, encode_djk_insn(opc_sub, rh, th, TCG_REG_TMP0));
     } else {
         if (cbl) {
             tcg_out_opc_imm(s, opc_addi, rl, al, bl);
-            tcg_out_opc_imm(s, OPC_SLTIU, TCG_REG_TMP0, rl, bl);
+            tcg_out_opc_sltui(s, TCG_REG_TMP0, rl, bl);
         } else if (rl == al && rl == bl) {
-            tcg_out_opc_imm(s, OPC_SLTI, TCG_REG_TMP0, al, 0);
-            tcg_out_opc_reg(s, opc_addi, rl, al, bl);
+            tcg_out_opc_slti(s, TCG_REG_TMP0, al, 0);
+            tcg_out32(s, encode_djk_insn(opc_addi, rl, al, bl));
         } else {
-            tcg_out_opc_reg(s, opc_add, rl, al, bl);
-            tcg_out_opc_reg(s, OPC_SLTU, TCG_REG_TMP0,
-                            rl, (rl == bl ? al : bl));
+            tcg_out32(s, encode_djk_insn(opc_add, rl, al, bl));
+            tcg_out_opc_sltu(s, TCG_REG_TMP0,
+                             rl, (rl == bl ? al : bl));
         }
-        tcg_out_opc_reg(s, opc_add, rh, th, TCG_REG_TMP0);
+        tcg_out32(s, encode_djk_insn(opc_add, rh, th, TCG_REG_TMP0));
     }
 }
 
