@@ -1594,6 +1594,7 @@ static const DebugFrame debug_frame = {
         (FRAME_SIZE >> 7)
     },
     .fde_reg_ofs = {
+        /* XXX fix this before submission */
         0x80 + 9,  12,                  /* DW_CFA_offset, s1,  -96 */
         0x80 + 18, 11,                  /* DW_CFA_offset, s2,  -88 */
         0x80 + 19, 10,                  /* DW_CFA_offset, s3,  -80 */
@@ -1603,8 +1604,6 @@ static const DebugFrame debug_frame = {
         0x80 + 23, 6,                   /* DW_CFA_offset, s7,  -48 */
         0x80 + 24, 5,                   /* DW_CFA_offset, s8,  -40 */
         0x80 + 25, 4,                   /* DW_CFA_offset, s9,  -32 */
-        0x80 + 26, 3,                   /* DW_CFA_offset, s10, -24 */
-        0x80 + 27, 2,                   /* DW_CFA_offset, s11, -16 */
         0x80 + 1 , 1,                   /* DW_CFA_offset, ra,  -8 */
     }
 };
