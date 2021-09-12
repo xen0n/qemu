@@ -79,8 +79,6 @@ static const int tcg_target_reg_alloc_order[] = {
     TCG_REG_S7,
     TCG_REG_S8,
     TCG_REG_S9,
-    TCG_REG_S10,
-    TCG_REG_S11,
 
     /* Call clobbered registers */
     TCG_REG_T0,
@@ -90,6 +88,8 @@ static const int tcg_target_reg_alloc_order[] = {
     TCG_REG_T4,
     TCG_REG_T5,
     TCG_REG_T6,
+    TCG_REG_T7,
+    TCG_REG_T8,
 
     /* Argument registers */
     TCG_REG_A0,
