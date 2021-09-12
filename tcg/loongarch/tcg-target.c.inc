@@ -28,6 +28,7 @@
  * THE SOFTWARE.
  */
 
+#include <stdio.h>
 #include "../tcg-pool.c.inc"
 
 #ifdef CONFIG_DEBUG_TCG
@@ -1478,6 +1479,7 @@ static TCGConstraintSetIndex tcg_target_op_def(TCGOpcode op)
                : C_O0_I4(LZ, LZ, L, L));
 
     default:
+        fprintf(stderr, "XXXXX op=%d\n", op);
         g_assert_not_reached();
     }
 }
