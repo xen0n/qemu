@@ -1220,7 +1220,7 @@ static void tcg_out_op(TCGContext *s, TCGOpcode opc,
 
     case INDEX_op_rotl_i32:
     case INDEX_op_rotr_i32:
-        if (op == INDEX_op_rotl_i32) {
+        if (opc == INDEX_op_rotl_i32) {
             a2 = 32 - a2;
         }
         if (c2) {
@@ -1231,7 +1231,7 @@ static void tcg_out_op(TCGContext *s, TCGOpcode opc,
         break;
     case INDEX_op_rotl_i64:
     case INDEX_op_rotr_i64:
-        if (op == INDEX_op_rotl_i32) {
+        if (opc == INDEX_op_rotl_i64) {
             a2 = 64 - a2;
         }
         if (c2) {
