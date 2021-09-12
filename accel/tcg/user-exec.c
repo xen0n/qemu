@@ -873,6 +873,7 @@ int cpu_signal_handler(int host_signum, void *pinfo,
             is_write = 1;
             break;
         }
+        break;
     case 0b001010: /* {ld,st}.* family */
         switch ((insn >> 22) & 0b1111) {
         case 0b0100: /* st.b */
