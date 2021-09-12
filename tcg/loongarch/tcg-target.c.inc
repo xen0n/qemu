@@ -571,8 +571,8 @@ static void tcg_out_call_int(TCGContext *s, const tcg_insn_unit *arg, bool tail)
         tcg_out_opc_bl(s, link, offset);
     } else if (TCG_TARGET_REG_BITS == 32 || offset == (int32_t)offset) {
         /* long jump: -2147483646 to 2147483648 */
-        tcg_out_opc_upper(s, OPC_AUIPC, TCG_REG_TMP0, 0);
-        tcg_out_opc_imm(s, OPC_JALR, link, TCG_REG_TMP0, 0);
+        tcg_out_opc_pcaddu12i(s, TCG_REG_TMP0, 0);
+        tcg_out_opc_jirl(s, link, TCG_REG_TMP0, 0);
         ret = reloc_call(s->code_ptr - 2, arg);
         tcg_debug_assert(ret == true);
     } else if (TCG_TARGET_REG_BITS == 64) {
@@ -580,7 +580,7 @@ static void tcg_out_call_int(TCGContext *s, const tcg_insn_unit *arg, bool tail)
         tcg_target_long imm = sextreg((tcg_target_long)arg, 0, 12);
         tcg_target_long base = (tcg_target_long)arg - imm;
         tcg_out_movi(s, TCG_TYPE_PTR, TCG_REG_TMP0, base);
-        tcg_out_opc_imm(s, OPC_JALR, link, TCG_REG_TMP0, imm);
+        tcg_out_opc_jirl(s, link, TCG_REG_TMP0, imm);
     } else {
         g_assert_not_reached();
     }
@@ -639,8 +639,8 @@ QEMU_BUILD_BUG_ON(TLB_MASK_TABLE_OFS(0) < -(1 << 11));
 
 static void tcg_out_goto(TCGContext *s, const tcg_insn_unit *target)
 {
-    tcg_out_opc_jump(s, OPC_JAL, TCG_REG_ZERO, 0);
-    bool ok = reloc_jimm20(s->code_ptr - 1, target);
+    tcg_out_opc_b(s, 0);
+    bool ok = reloc_jimm20(s->code_ptr - 1, target); // XXX B I26
     tcg_debug_assert(ok);
 }
 
@@ -975,7 +975,7 @@ static void tcg_out_op(TCGContext *s, TCGOpcode opc,
         /* indirect jump method */
         tcg_out_ld(s, TCG_TYPE_PTR, TCG_REG_TMP0, TCG_REG_ZERO,
                    (uintptr_t)(s->tb_jmp_target_addr + a0));
-        tcg_out_opc_imm(s, OPC_JALR, TCG_REG_ZERO, TCG_REG_TMP0, 0);
+        tcg_out_opc_jirl(s, TCG_REG_ZERO, TCG_REG_TMP0, 0);
         set_jmp_reset_offset(s, a0);
         break;
 
@@ -984,8 +984,8 @@ static void tcg_out_op(TCGContext *s, TCGOpcode opc,
         break;
 
     case INDEX_op_br:
-        tcg_out_reloc(s, s->code_ptr, R_RISCV_JAL, arg_label(a0), 0);
-        tcg_out_opc_jump(s, OPC_JAL, TCG_REG_ZERO, 0);
+        tcg_out_reloc(s, s->code_ptr, R_RISCV_JAL, arg_label(a0), 0);  // XXX B I26
+        tcg_out_opc_b(s, 0);
         break;
 
     case INDEX_op_ld8u_i32:
@@ -1473,7 +1473,7 @@ static void tcg_target_qemu_prologue(TCGContext *s)
     tcg_set_frame(s, TCG_REG_SP, TCG_STATIC_CALL_ARGS_SIZE, TEMP_SIZE);
 
     /* TB prologue */
-    tcg_out_opc_imm(s, OPC_ADDI, TCG_REG_SP, TCG_REG_SP, -FRAME_SIZE);
+    tcg_out_opc_addi_d(s, TCG_REG_SP, TCG_REG_SP, -FRAME_SIZE);
     for (i = 0; i < ARRAY_SIZE(tcg_target_callee_save_regs); i++) {
         tcg_out_st(s, TCG_TYPE_REG, tcg_target_callee_save_regs[i],
                    TCG_REG_SP, SAVE_OFS + i * REG_SIZE);
@@ -1486,7 +1486,7 @@ static void tcg_target_qemu_prologue(TCGContext *s)
 
     /* Call generated code */
     tcg_out_mov(s, TCG_TYPE_PTR, TCG_AREG0, tcg_target_call_iarg_regs[0]);
-    tcg_out_opc_imm(s, OPC_JALR, TCG_REG_ZERO, tcg_target_call_iarg_regs[1], 0);
+    tcg_out_opc_jirl(s, TCG_REG_ZERO, tcg_target_call_iarg_regs[1], 0);
 
     /* Return path for goto_ptr. Set return value to 0 */
     tcg_code_gen_epilogue = tcg_splitwx_to_rx(s->code_ptr);
@@ -1499,8 +1499,8 @@ static void tcg_target_qemu_prologue(TCGContext *s)
                    TCG_REG_SP, SAVE_OFS + i * REG_SIZE);
     }
 
-    tcg_out_opc_imm(s, OPC_ADDI, TCG_REG_SP, TCG_REG_SP, FRAME_SIZE);
-    tcg_out_opc_imm(s, OPC_JALR, TCG_REG_ZERO, TCG_REG_RA, 0);
+    tcg_out_opc_addi_d(s, TCG_REG_SP, TCG_REG_SP, FRAME_SIZE);
+    tcg_out_opc_jirl(s, TCG_REG_ZERO, TCG_REG_RA, 0);
 }
 
 static void tcg_target_init(TCGContext *s)
