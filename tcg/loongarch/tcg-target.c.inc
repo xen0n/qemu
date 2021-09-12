@@ -265,8 +265,7 @@ static bool tcg_out_mov(TCGContext *s, TCGType type, TCGReg ret, TCGReg arg)
 static void tcg_out_movi(TCGContext *s, TCGType type, TCGReg rd,
                          tcg_target_long val)
 {
-    tcg_target_long low, upper, higher, top, tmp;
-    int shift, ret;
+    tcg_target_long low, upper, higher, top;
 
     if (TCG_TARGET_REG_BITS == 64 && type == TCG_TYPE_I32) {
         val = (int32_t)val;
