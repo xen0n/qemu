@@ -1389,6 +1389,10 @@ static TCGConstraintSetIndex tcg_target_op_def(TCGOpcode op)
     case INDEX_op_extrl_i64_i32:
     case INDEX_op_extrh_i64_i32:
     case INDEX_op_ext_i32_i64:
+    case INDEX_op_clz_i32:
+    case INDEX_op_clz_i64:
+    case INDEX_op_ctz_i32:
+    case INDEX_op_ctz_i64:
         return C_O1_I1(r, r);
 
     case INDEX_op_st8_i32:
@@ -1438,6 +1442,8 @@ static TCGConstraintSetIndex tcg_target_op_def(TCGOpcode op)
     case INDEX_op_shl_i64:
     case INDEX_op_shr_i64:
     case INDEX_op_sar_i64:
+    case INDEX_op_rotr_i32:
+    case INDEX_op_rotr_i64:
         return C_O1_I2(r, r, ri);
 
     case INDEX_op_brcond_i32:
