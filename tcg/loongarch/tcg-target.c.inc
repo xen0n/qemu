@@ -2,12 +2,12 @@
  * Tiny Code Generator for QEMU
  *
  * Copyright (c) 2021 WANG Xuerui <git@xen0n.name>
+ *
+ * Based on riscv/tcg-target.c.inc
  * Copyright (c) 2018 SiFive, Inc
  * Copyright (c) 2008-2009 Arnaud Patard <arnaud.patard@rtp-net.org>
  * Copyright (c) 2009 Aurelien Jarno <aurelien@aurel32.net>
  * Copyright (c) 2008 Fabrice Bellard
- *
- * Based on riscv/tcg-target.c.inc
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
