@@ -461,7 +461,7 @@ static void tcg_out_clzctz(TCGContext *s, LoongArchInsn opc,
                            TCGReg a0, TCGReg a1, TCGReg a2)
 {
     tcg_out32(s, encode_dj_insn(opc, TCG_REG_TMP0, a1));
-    tcg_out_opc_maskeqz(s, TCG_REG_TMP0, a1);
+    tcg_out_opc_maskeqz(s, TCG_REG_TMP0, TCG_REG_TMP0, a1);
     tcg_out_opc_masknez(s, a0, a2, a1);
     tcg_out_opc_or(s, a0, TCG_REG_TMP0, a0);
 }
