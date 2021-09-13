@@ -209,7 +209,7 @@ static bool reloc_sk12(tcg_insn_unit *src_rw, const tcg_insn_unit *target)
     intptr_t offset = (intptr_t)target - (intptr_t)src_rx;
 
     if (offset == sextreg(offset, 0, 12)) {
-        *src_rw |= (offset << 15) & 0x3ffc00;
+        *src_rw |= (offset << 10) & 0x3ffc00;
         return true;
     }
 
