@@ -224,7 +224,7 @@ static bool reloc_sk16(tcg_insn_unit *src_rw, const tcg_insn_unit *target)
     tcg_debug_assert((offset & 2) == 0);
     offset >>= 2;
     if (offset == sextreg(offset, 0, 16)) {
-        *src_rw |= (offset << 15) & 0x3fffc00;
+        *src_rw |= (offset << 10) & 0x3fffc00;
         return true;
     }
 
