@@ -250,8 +250,10 @@ static bool reloc_call(tcg_insn_unit *src_rw, const tcg_insn_unit *target)
     int32_t lo = sextreg(offset, 0, 12);
     int32_t hi = offset - lo;
 
+    tcg_debug_assert((offset & 2) == 0);
     if (offset == hi + lo) {
         src_rw[0] |= (hi << 5) & 0x1ffffe0; /* pcaddu12i's Sj20 imm */
+        lo >>= 2;
         src_rw[1] |= (lo << 15) & 0x3fffc00; /* jirl's Sk16 imm */
         return true;
     }
