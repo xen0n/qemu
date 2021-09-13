@@ -123,6 +123,7 @@ static const int tcg_target_call_oarg_regs[] = {
 #define TCG_CT_CONST_S12   0x200
 #define TCG_CT_CONST_N12   0x400
 #define TCG_CT_CONST_M12   0x800
+#define TCG_CT_CONST_U12   0x1000
 
 #define ALL_GENERAL_REGS      MAKE_64BIT_MASK(0, 32)
 /*
@@ -162,6 +163,9 @@ static bool tcg_target_const_match(int64_t val, TCGType type, int ct)
         return 1;
     }
     if ((ct & TCG_CT_CONST_M12) && val >= -0xfff && val <= 0xfff) {
+        return 1;
+    }
+    if ((ct & TCG_CT_CONST_U12) && val >= 0 && val <= 0xfff) {
         return 1;
     }
     return 0;
@@ -1422,14 +1426,17 @@ static TCGConstraintSetIndex tcg_target_op_def(TCGOpcode op)
         return C_O0_I2(rZ, r);
 
     case INDEX_op_add_i32:
+    case INDEX_op_add_i64:
+        return C_O1_I2(r, r, rI);
+
     case INDEX_op_and_i32:
     case INDEX_op_or_i32:
     case INDEX_op_xor_i32:
-    case INDEX_op_add_i64:
     case INDEX_op_and_i64:
     case INDEX_op_or_i64:
     case INDEX_op_xor_i64:
-        return C_O1_I2(r, r, rI);
+        /* LoongArch reg-imm bitops have their imms ZERO-extended */
+        return C_O1_I2(r, r, rU);
 
     case INDEX_op_sub_i32:
     case INDEX_op_sub_i64:
