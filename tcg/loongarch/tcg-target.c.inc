@@ -601,13 +601,13 @@ static void tcg_out_call_int(TCGContext *s, const tcg_insn_unit *arg, bool tail)
     ptrdiff_t offset = tcg_pcrel_diff(s, arg);
     int ret;
 
-    tcg_debug_assert((offset & 1) == 0);
-    if (offset == sextreg(offset, 0, 25)) {
+    tcg_debug_assert((offset & 2) == 0);
+    if (offset == sextreg(offset, 0, 28)) {
         /* short jump: -2097150 to 2097152 XXX change constant */
         if (tail) {
-            tcg_out_opc_b(s, offset);
+            tcg_out_opc_b(s, offset >> 2);
         } else {
-            tcg_out_opc_bl(s, offset);
+            tcg_out_opc_bl(s, offset >> 2);
         }
     } else if (TCG_TARGET_REG_BITS == 32 || offset == (int32_t)offset) {
         /* long jump: -2147483646 to 2147483648 */
@@ -620,7 +620,7 @@ static void tcg_out_call_int(TCGContext *s, const tcg_insn_unit *arg, bool tail)
         tcg_target_long imm = sextreg((tcg_target_long)arg, 0, 12);
         tcg_target_long base = (tcg_target_long)arg - imm;
         tcg_out_movi(s, TCG_TYPE_PTR, TCG_REG_TMP0, base);
-        tcg_out_opc_jirl(s, link, TCG_REG_TMP0, imm);
+        tcg_out_opc_jirl(s, link, TCG_REG_TMP0, imm >> 2);
     } else {
         g_assert_not_reached();
     }
