@@ -202,6 +202,7 @@ static void tcg_out_nop_fill(tcg_insn_unit *p, int count)
 /* Relocates a PCADDU12I + JIRL pair */
 #define R_LOONGARCH_CALL    258
 
+#ifdef CONFIG_SOFTMMU
 /* For relocating ld/st instructions. */
 static bool reloc_sk12(tcg_insn_unit *src_rw, const tcg_insn_unit *target)
 {
@@ -215,6 +216,7 @@ static bool reloc_sk12(tcg_insn_unit *src_rw, const tcg_insn_unit *target)
 
     return false;
 }
+#endif
 
 static bool reloc_sk16(tcg_insn_unit *src_rw, const tcg_insn_unit *target)
 {
