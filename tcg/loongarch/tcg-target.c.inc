@@ -1214,7 +1214,12 @@ static void tcg_out_op(TCGContext *s, TCGOpcode opc,
     case INDEX_op_rotl_i32:
     case INDEX_op_rotr_i32:
         if (opc == INDEX_op_rotl_i32) {
-            a2 = 32 - a2;
+            if (c2) {
+                a2 = 32 - a2;
+            } else {
+                tcg_out_opc_sub_w(s, a2, TCG_REG_ZERO, a2);
+                tcg_out_opc_addi_w(s, a2, a2, 32);
+            }
         }
         if (c2) {
             tcg_out_opc_rotri_w(s, a0, a1, a2 & 0x1f);
@@ -1225,7 +1230,12 @@ static void tcg_out_op(TCGContext *s, TCGOpcode opc,
     case INDEX_op_rotl_i64:
     case INDEX_op_rotr_i64:
         if (opc == INDEX_op_rotl_i64) {
-            a2 = 64 - a2;
+            if (c2) {
+                a2 = 64 - a2;
+            } else {
+                tcg_out_opc_sub_w(s, a2, TCG_REG_ZERO, a2);
+                tcg_out_opc_addi_w(s, a2, a2, 64);
+            }
         }
         if (c2) {
             tcg_out_opc_rotri_d(s, a0, a1, a2 & 0x3f);
