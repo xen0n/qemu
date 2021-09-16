@@ -244,7 +244,7 @@ static bool reloc_call(tcg_insn_unit *src_rw, const tcg_insn_unit *target)
     if (offset == hi + lo) {
         src_rw[0] |= (hi << 5) & 0x1ffffe0; /* pcaddu12i's Sj20 imm */
         lo >>= 2;
-        src_rw[1] |= (lo << 15) & 0x3fffc00; /* jirl's Sk16 imm */
+        src_rw[1] |= (lo << 10) & 0x3fffc00; /* jirl's Sk16 imm */
         return true;
     }
 
