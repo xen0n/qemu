@@ -1097,6 +1097,11 @@ static void tcg_out_op(TCGContext *s, TCGOpcode opc,
         }
         break;
 
+    case INDEX_op_nor_i32:
+    case INDEX_op_nor_i64:
+        tcg_out_opc_nor(s, a0, a1, a2);
+        break;
+
     case INDEX_op_xor_i32:
     case INDEX_op_xor_i64:
         if (c2) {
@@ -1116,6 +1121,16 @@ static void tcg_out_op(TCGContext *s, TCGOpcode opc,
         break;
     case INDEX_op_neg_i64:
         tcg_out_opc_sub_d(s, a0, TCG_REG_ZERO, a1);
+        break;
+
+    case INDEX_op_andc_i32:
+    case INDEX_op_andc_i64:
+        tcg_out_opc_andn(s, a0, a1, a2);
+        break;
+
+    case INDEX_op_orc_i32:
+    case INDEX_op_orc_i64:
+        tcg_out_opc_orn(s, a0, a1, a2);
         break;
 
     case INDEX_op_mul_i32:
@@ -1437,6 +1452,14 @@ static TCGConstraintSetIndex tcg_target_op_def(TCGOpcode op)
     case INDEX_op_xor_i64:
         /* LoongArch reg-imm bitops have their imms ZERO-extended */
         return C_O1_I2(r, r, rU);
+
+    case INDEX_op_nor_i32:
+    case INDEX_op_andc_i32:
+    case INDEX_op_orc_i32:
+    case INDEX_op_nor_i64:
+    case INDEX_op_andc_i64:
+    case INDEX_op_orc_i64:
+        return C_O1_I2(r, r, r);
 
     case INDEX_op_sub_i32:
     case INDEX_op_sub_i64:
