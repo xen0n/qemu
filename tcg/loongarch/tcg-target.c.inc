@@ -1412,7 +1412,7 @@ static TCGConstraintSetIndex tcg_target_op_def(TCGOpcode op)
     case INDEX_op_ext_i32_i64:
     case INDEX_op_extract_i32:
     case INDEX_op_extract_i64:
-    case INDEX_op_bswap32_i32: // XXX add bswap16_i32 too
+    case INDEX_op_bswap32_i32:
     case INDEX_op_bswap64_i64:
         return C_O1_I1(r, r);
 
