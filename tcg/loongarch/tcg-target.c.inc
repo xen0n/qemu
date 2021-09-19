@@ -29,7 +29,6 @@
  */
 
 #include <stdio.h>
-#include "../tcg-pool.c.inc"
 
 #ifdef CONFIG_DEBUG_TCG
 static const char * const tcg_target_reg_names[TCG_TARGET_NB_REGS] = {
@@ -172,15 +171,6 @@ static bool tcg_target_const_match(int64_t val, TCGType type, int ct)
 }
 
 #include "tcg-insn-defs.c.inc"
-
-static void tcg_out_nop_fill(tcg_insn_unit *p, int count)
-{
-    int i;
-    for (i = 0; i < count; ++i) {
-        /* conventional NOP used in LoongArch is `andi zero, zero, 0` */
-        p[i] = encode_djuk12_insn(OPC_ANDI, TCG_REG_ZERO, TCG_REG_ZERO, 0);
-    }
-}
 
 /*
  * Relocations
