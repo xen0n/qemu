@@ -199,8 +199,6 @@ static void tcg_out_nop_fill(tcg_insn_unit *p, int count)
 #define R_LOONGARCH_SK16    256
 /* Field Sd10k16; suitable for B and BL */
 #define R_LOONGARCH_SD10K16 257
-/* Relocates a PCADDU12I + JIRL pair */
-#define R_LOONGARCH_CALL    258
 
 static bool reloc_sk16(tcg_insn_unit *src_rw, const tcg_insn_unit *target)
 {
@@ -260,8 +258,6 @@ static bool patch_reloc(tcg_insn_unit *code_ptr, int type,
         return reloc_sk16(code_ptr, (tcg_insn_unit *)value);
     case R_LOONGARCH_SD10K16:
         return reloc_sd10k16(code_ptr, (tcg_insn_unit *)value);
-    case R_LOONGARCH_CALL:
-        return reloc_call(code_ptr, (tcg_insn_unit *)value);
     default:
         g_assert_not_reached();
     }
