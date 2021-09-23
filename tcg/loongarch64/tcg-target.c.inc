@@ -276,9 +276,9 @@ static bool imm_part_needs_loading(bool high_bits_are_ones,
                                    tcg_target_long part)
 {
     if (high_bits_are_ones) {
-        return part == -1;
+        return part != -1;
     } else {
-        return part == 0;
+        return part != 0;
     }
 }
 
