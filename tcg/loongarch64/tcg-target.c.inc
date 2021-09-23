@@ -272,6 +272,16 @@ static bool tcg_out_mov(TCGContext *s, TCGType type, TCGReg ret, TCGReg arg)
     return true;
 }
 
+static bool imm_part_needs_loading(bool high_bits_are_ones,
+                                   tcg_target_long part)
+{
+    if (high_bits_are_ones) {
+        return part == -1;
+    } else {
+        return part == 0;
+    }
+}
+
 static void tcg_out_movi(TCGContext *s, TCGType type, TCGReg rd,
                          tcg_target_long val)
 {
@@ -321,44 +331,34 @@ static void tcg_out_movi(TCGContext *s, TCGType type, TCGReg rd,
     tcg_target_long higher = sextreg(val, 32, 20);
     tcg_target_long top = sextreg(val, 52, 12);
     bool rd_written = false;
+    bool rd_high_bits_are_ones = false;
 
     if (upper != 0) {
         tcg_out_opc_lu12i_w(s, rd, upper);
         rd_written = true;
+        rd_high_bits_are_ones = upper < 0;
     }
     if (low != 0) {
         tcg_out_opc_ori(s, rd, rd_written ? rd : TCG_REG_ZERO, low & 0xfff);
         rd_written = true;
     }
 
-    if (sextreg(val, 0, 32) == val) {
-        /*
-         * Fits in 32-bits, upper bits are already properly sign-extended by
-         * lu12i.w.
-         */
-        return;
-    }
-
-    if (higher != 0) {
+    if (imm_part_needs_loading(rd_high_bits_are_ones, higher)) {
         if (!rd_written) {
             /*
              * cu32i.d only has 1 input register, yet rd is still untouched
              * by now. We must zero it here.
              */
             tcg_out_opc_or(s, rd, TCG_REG_ZERO, TCG_REG_ZERO);
-            rd_written = true;
         }
         tcg_out_opc_cu32i_d(s, rd, higher);
+        rd_written = true;
+        rd_high_bits_are_ones = higher < 0;
     }
 
-    if (sextreg(val, 0, 52) == val) {
-        /*
-         * Fits in 52-bits, upper bits are already properly sign-extended by
-         * cu32i.d.
-         */
-        return;
+    if (imm_part_needs_loading(rd_high_bits_are_ones, top)) {
+        tcg_out_opc_cu52i_d(s, rd, rd_written ? rd : TCG_REG_ZERO, top);
     }
-    tcg_out_opc_cu52i_d(s, rd, rd_written ? rd : TCG_REG_ZERO, top);
 }
 
 static void tcg_out_ext8u(TCGContext *s, TCGReg ret, TCGReg arg)
