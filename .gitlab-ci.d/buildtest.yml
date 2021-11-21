@@ -263,6 +263,18 @@ build-user-hexagon:
     CONFIGURE_ARGS: --disable-tools --disable-docs --enable-debug-tcg
     MAKE_CHECK_ARGS: check-tcg
 
+# Same for loongarch64.
+build-user-loongarch64:
+  extends: .native_build_job_template
+  needs:
+    job: loongarch64-cross-container
+    optional: true
+  variables:
+    IMAGE: gentoo-loongarch64-cross
+    TARGETS: loongarch64-linux-user
+    CONFIGURE_ARGS: --disable-tools --disable-docs --enable-debug-tcg
+    MAKE_CHECK_ARGS: check-tcg
+
 # Only build the softmmu targets we have check-tcg tests for
 build-some-softmmu:
   extends: .native_build_job_template

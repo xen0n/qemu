@@ -1,0 +1,5 @@
+# -*- Mode: makefile -*-
+# LoongArch64 specific tweaks
+
+VPATH += $(SRC_PATH)/tests/tcg/loongarch64
+TESTS += hello

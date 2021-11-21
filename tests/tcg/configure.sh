@@ -54,6 +54,7 @@ fi
 : ${cross_cc_hppa="hppa-linux-gnu-gcc"}
 : ${cross_cc_i386="i686-linux-gnu-gcc"}
 : ${cross_cc_cflags_i386="-m32"}
+: ${cross_cc_loongarch64="loongarch64-unknown-linux-gnu-gcc"}
 : ${cross_cc_m68k="m68k-linux-gnu-gcc"}
 : ${cross_cc_microblaze="microblaze-linux-musl-gcc"}
 : ${cross_cc_mips64el="mips64el-linux-gnuabi64-gcc"}
@@ -129,6 +130,11 @@ for target in $target_list; do
       container_image=fedora-i386-cross
       container_cross_cc=gcc
       supress_clang=yes
+      ;;
+    loongarch64-*)
+      container_hosts=x86_64
+      container_image=gentoo-loongarch64-cross
+      container_cross_cc=loongarch64-unknown-linux-gnu-gcc
       ;;
     m68k-*)
       container_hosts=x86_64
