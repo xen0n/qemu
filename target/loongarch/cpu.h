@@ -358,6 +358,7 @@ typedef struct CPUArchState {
     MemoryRegion iocsr_mem;
     bool load_elf;
     uint64_t elf_address;
+    uint32_t mp_state;
     /* Store ipistate to access from this struct */
     DeviceState *ipistate;
 #endif
@@ -475,6 +476,7 @@ static inline void cpu_get_tb_cpu_state(CPULoongArchState *env, vaddr *pc,
 }
 
 void loongarch_cpu_list(void);
+void kvm_arch_reset_vcpu(CPULoongArchState *env);
 
 #define cpu_list loongarch_cpu_list
 
