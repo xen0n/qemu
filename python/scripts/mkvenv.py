@@ -404,6 +404,7 @@ def _gen_importlib(packages: Sequence[str]) -> Iterator[str]:
     try:
         # First preference: Python 3.8+ stdlib
         from importlib.metadata import (  # type: ignore
+            EntryPoint,
             PackageNotFoundError,
             distribution,
         )
@@ -411,6 +412,7 @@ def _gen_importlib(packages: Sequence[str]) -> Iterator[str]:
         logger.debug("%s", str(exc))
         # Second preference: Commonly available PyPI backport
         from importlib_metadata import (  # type: ignore
+            EntryPoint,
             PackageNotFoundError,
             distribution,
         )
@@ -418,7 +420,8 @@ def _gen_importlib(packages: Sequence[str]) -> Iterator[str]:
     def _generator() -> Iterator[str]:
         for package in packages:
             try:
-                entry_points = distribution(package).entry_points
+                entry_points: Iterator[EntryPoint] = \
+                    iter(distribution(package).entry_points)
             except PackageNotFoundError:
                 continue
 
