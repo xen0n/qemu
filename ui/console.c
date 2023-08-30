@@ -174,7 +174,6 @@ static QEMUTimer *cursor_timer;
 
 static void dpy_refresh(DisplayState *s);
 static DisplayState *get_alloc_displaystate(void);
-static void text_console_update_cursor_timer(void);
 static void text_console_update_cursor(void *opaque);
 static bool displaychangelistener_has_dmabuf(DisplayChangeListener *dcl);
 static bool console_compatible_with(QemuConsole *con,
@@ -2500,12 +2499,6 @@ static void vc_chr_set_echo(Chardev *chr, bool echo)
     drv->console->echo = echo;
 }
 
-static void text_console_update_cursor_timer(void)
-{
-    timer_mod(cursor_timer, qemu_clock_get_ms(QEMU_CLOCK_REALTIME)
-              + CONSOLE_CURSOR_PERIOD / 2);
-}
-
 static void text_console_update_cursor(void *opaque)
 {
     QemuConsole *s;
@@ -2523,7 +2516,8 @@ static void text_console_update_cursor(void *opaque)
     }
 
     if (count) {
-        text_console_update_cursor_timer();
+        timer_mod(cursor_timer,
+                  qemu_clock_get_ms(QEMU_CLOCK_REALTIME) + CONSOLE_CURSOR_PERIOD / 2);
     }
 }
 
