@@ -89,6 +89,7 @@ static int kvm_larch_getq(CPUState *cs, uint64_t reg_id,
 
     return kvm_vcpu_ioctl(cs, KVM_GET_ONE_REG, &csrreg);
 }
+
 static int kvm_larch_putq(CPUState *cs, uint64_t reg_id,
                                  uint64_t *addr)
 {
@@ -99,11 +100,6 @@ static int kvm_larch_putq(CPUState *cs, uint64_t reg_id,
 
     return kvm_vcpu_ioctl(cs, KVM_SET_ONE_REG, &csrreg);
 }
-
-#define LOONGARCH_CSR_64(_R, _S)  \
-        (KVM_REG_LOONGARCH_CSR | KVM_REG_SIZE_U64 | (8 * (_R) + (_S)))
-
-#define KVM_IOC_CSRID(id) LOONGARCH_CSR_64(id, 0)
 
 #define KVM_GET_ONE_UREG64(cs, ret, regidx, addr)                 \
     ({                                                            \
@@ -351,6 +347,40 @@ static int kvm_loongarch_put_mpstate(CPUState *cs)
     return ret;
 }
 
+static int kvm_loongarch_get_cpucfg(CPUState *cs)
+{
+    int i, ret = 0;
+    uint64_t val;
+    LoongArchCPU *cpu = LOONGARCH_CPU(cs);
+    CPULoongArchState *env = &cpu->env;
+
+    for (i = 0; i < 21; i++) {
+        ret = kvm_larch_getq(cs, KVM_IOC_CPUCFG(i), &val);
+        if (ret < 0) {
+            trace_kvm_failed_get_cpucfg(strerror(errno));
+        }
+        env->cpucfg[i] = (uint32_t)val;
+    }
+    return ret;
+}
+
+static int kvm_loongarch_put_cpucfg(CPUState *cs)
+{
+    int i, ret = 0;
+    LoongArchCPU *cpu = LOONGARCH_CPU(cs);
+    CPULoongArchState *env = &cpu->env;
+    uint64_t val;
+
+    for (i = 0; i < 21; i++) {
+        val = env->cpucfg[i];
+        ret = kvm_larch_putq(cs, KVM_IOC_CPUCFG(i), &val);
+        if (ret < 0) {
+            trace_kvm_failed_put_cpucfg(strerror(errno));
+        }
+    }
+    return ret;
+}
+
 int kvm_arch_get_registers(CPUState *cs)
 {
     int ret;
@@ -371,7 +401,11 @@ int kvm_arch_get_registers(CPUState *cs)
     }
 
     ret = kvm_loongarch_get_mpstate(cs);
+    if (ret) {
+        return ret;
+    }
 
+    ret = kvm_loongarch_get_cpucfg(cs);
     return ret;
 }
 
@@ -395,7 +429,11 @@ int kvm_arch_put_registers(CPUState *cs, int level)
     }
 
     ret = kvm_loongarch_put_mpstate(cs);
+    if (ret) {
+        return ret;
+    }
 
+    ret = kvm_loongarch_put_cpucfg(cs);
     return ret;
 }
 
