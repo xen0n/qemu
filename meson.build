@@ -226,7 +226,7 @@ if targetos == 'darwin'
   if compiler.get_id() == 'gcc'
     qemu_common_flags += '-DOS_OBJECT_USE_OBJC=0'
   endif
-elif targetos == 'solaris'
+elif targetos == 'sunos'
   # needed for CMSG_ macros in sys/socket.h
   qemu_common_flags += '-D_XOPEN_SOURCE=600'
   # needed for TIOCWIN* defines in termios.h
