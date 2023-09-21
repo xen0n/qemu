@@ -373,9 +373,12 @@ static int kvm_loongarch_put_cpucfg(CPUState *cs)
 
     for (i = 0; i < 21; i++) {
         val = env->cpucfg[i];
-        /* LSX and LASX are not supported in kvm now */
-        if (i == 2)
+        /* LSX and LASX and LBT are not supported in kvm now */
+        if (i == 2) {
             val &= ~(BIT(R_CPUCFG2_LSX_SHIFT) | BIT(R_CPUCFG2_LASX_SHIFT));
+            val &= ~(BIT(R_CPUCFG2_LBT_X86_SHIFT) | BIT(R_CPUCFG2_LBT_ARM_SHIFT) |
+                     BIT(R_CPUCFG2_LBT_MIPS_SHIFT));
+        }
         ret = kvm_larch_putq(cs, KVM_IOC_CPUCFG(i), &val);
         if (ret < 0) {
             trace_kvm_failed_put_cpucfg(strerror(errno));
